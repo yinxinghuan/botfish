@@ -250,5 +250,161 @@
     "age": 25,
     "prompt": "amateur photo of a person at a cafe, an extra third arm visible faintly behind the shoulder, ghostly extra limb glitch, otherwise casual daylight dating-profile photo",
     "file": "a12.jpg"
+  },
+  {
+    "id": "a13",
+    "kind": "ai",
+    "tells": [
+      "watermelon_head"
+    ],
+    "tell_label_en": "head is a whole watermelon",
+    "tell_label_zh": "\u5934\u662f\u6574\u9897\u897f\u74dc",
+    "name": "Nico",
+    "age": 28,
+    "prompt": "amateur dating-app selfie of a person whose entire head has been replaced by a giant WHOLE WATERMELON \u2014 striped green rind, no face, no eyes, no mouth \u2014 sitting on the neck as if it were a normal head, body wearing a casual t-shirt, hand giving a peace sign, normal living-room background, photorealistic, watermelon clearly attached to neck",
+    "file": "a13.jpg"
+  },
+  {
+    "id": "a14",
+    "kind": "ai",
+    "tells": [
+      "bread_hands"
+    ],
+    "tell_label_en": "hands are loaves of bread",
+    "tell_label_zh": "\u624b\u662f\u9762\u5305",
+    "name": "Wren",
+    "age": 26,
+    "prompt": "amateur smiling selfie, both visible hands are LITERAL LOAVES OF GOLDEN SOURDOUGH BREAD with crusty exteriors \u2014 no fingers at all, just whole bread loaves attached at the wrists, otherwise a normal person sitting in a brightly lit kitchen, photorealistic",
+    "file": "a14.jpg"
+  },
+  {
+    "id": "a15",
+    "kind": "ai",
+    "tells": [
+      "noodle_hair"
+    ],
+    "tell_label_en": "hair is cooked spaghetti",
+    "tell_label_zh": "\u5934\u53d1\u662f\u716e\u719f\u7684\u610f\u5927\u5229\u9762",
+    "name": "Aria",
+    "age": 24,
+    "prompt": "selfie of a woman, her hair is replaced by long COOKED SPAGHETTI NOODLES draping over her shoulders \u2014 pale yellow pasta strands, some glistening with marinara sauce, smiling normally, Italian restaurant background, photorealistic",
+    "file": "a15.jpg"
+  },
+  {
+    "id": "a16",
+    "kind": "ai",
+    "tells": [
+      "two_faces"
+    ],
+    "tell_label_en": "two complete faces on one head",
+    "tell_label_zh": "\u4e00\u9897\u5934\u4e0a\u957f\u7740\u4e24\u5f20\u5b8c\u6574\u7684\u8138",
+    "name": "Soren",
+    "age": 30,
+    "prompt": "portrait selfie, a single head with TWO COMPLETE FACES fused side by side like a Janus head \u2014 two noses, two mouths, four eyes total, both faces smiling, sunny park background, photorealistic skin, natural daylight",
+    "file": "a16.jpg"
+  },
+  {
+    "id": "a17",
+    "kind": "ai",
+    "tells": [
+      "cyclops"
+    ],
+    "tell_label_en": "single eye in the forehead",
+    "tell_label_zh": "\u989d\u5934\u6b63\u4e2d\u53ea\u6709\u4e00\u53ea\u5927\u773c\u775b",
+    "name": "Hugo",
+    "age": 32,
+    "prompt": "amateur selfie of a man with a SINGLE LARGE EYE in the middle of his forehead \u2014 no other eyes anywhere \u2014 like a cyclops, normal nose and mouth below, photorealistic, otherwise totally normal coffee-shop selfie, daylight",
+    "file": "a17.jpg"
+  },
+  {
+    "id": "a18",
+    "kind": "ai",
+    "tells": [
+      "melting_face"
+    ],
+    "tell_label_en": "face melting like a Dal\u00ed painting",
+    "tell_label_zh": "\u8138\u50cf\u8fbe\u5229\u753b\u4e00\u6837\u5728\u878d\u5316",
+    "name": "Vera",
+    "age": 27,
+    "prompt": "dating-app selfie, the person's face is MELTING and dripping downward like wax in a Salvador Dal\u00ed painting \u2014 skin sliding off the skull, one eye drooping down to the chin, photorealistic but surreal, normal living-room lighting",
+    "file": "a18.jpg"
+  },
+  {
+    "id": "a19",
+    "kind": "ai",
+    "tells": [
+      "held_head"
+    ],
+    "tell_label_en": "holding their own detached head",
+    "tell_label_zh": "\u62ce\u7740\u81ea\u5df1\u7684\u8111\u888b",
+    "name": "Pablo",
+    "age": 29,
+    "prompt": "amateur outdoor selfie, the person is HOLDING THEIR OWN DETACHED HEAD up next to their headless body \u2014 body wearing a casual hoodie, the held head is smiling normally, sunny garden background, photorealistic, no blood just clean impossibility",
+    "file": "a19.jpg"
+  },
+  {
+    "id": "a20",
+    "kind": "ai",
+    "tells": [
+      "shark_teeth"
+    ],
+    "tell_label_en": "rows and rows of shark teeth",
+    "tell_label_zh": "\u4e00\u5634\u5bc6\u5bc6\u9ebb\u9ebb\u9ca8\u9c7c\u7259",
+    "name": "Reese",
+    "age": 25,
+    "prompt": "selfie smiling wide open, mouth filled with THREE OVERLAPPING ROWS of jagged triangular SHARK TEETH \u2014 40+ teeth visible, photorealistic, horror-uncanny, otherwise normal park background, casual outfit",
+    "file": "a20.jpg"
+  },
+  {
+    "id": "a21",
+    "kind": "ai",
+    "tells": [
+      "chest_arm"
+    ],
+    "tell_label_en": "third arm growing from the chest",
+    "tell_label_zh": "\u80f8\u53e3\u957f\u51fa\u7b2c\u4e09\u6761\u80f3\u818a",
+    "name": "Otis",
+    "age": 28,
+    "prompt": "selfie at a cafe, a fully formed THIRD ARM grows out from the center of the chest holding a coffee cup, both regular arms still visible at the sides, photorealistic skin, casual t-shirt, daylight cafe setting",
+    "file": "a21.jpg"
+  },
+  {
+    "id": "a22",
+    "kind": "ai",
+    "tells": [
+      "shoulder_faces"
+    ],
+    "tell_label_en": "tiny copies of own face on both shoulders",
+    "tell_label_zh": "\u4e24\u4e2a\u80a9\u8180\u5404\u957f\u4e00\u5f20\u8ff7\u4f60\u7248\u81ea\u5df1\u7684\u8138",
+    "name": "Indie",
+    "age": 23,
+    "prompt": "amateur portrait selfie, two TINY MINIATURE COPIES of the person's own face are growing out of their shoulders like fleshy lumps with full eyes mouths and noses \u2014 all three faces share the same features, photorealistic skin, casual indoor lighting",
+    "file": "a22.jpg"
+  },
+  {
+    "id": "a23",
+    "kind": "ai",
+    "tells": [
+      "tile_skin"
+    ],
+    "tell_label_en": "skin is hexagonal tiles",
+    "tell_label_zh": "\u76ae\u80a4\u662f\u516d\u8fb9\u5f62\u74f7\u7816",
+    "name": "Bowen",
+    "age": 31,
+    "prompt": "amateur indoor selfie, the person's face and arms are clearly made of small HEXAGONAL BEIGE PLASTIC TILES like a 3D mosaic, visible seams between hexagons, eyes still real, otherwise normal living-room background, photorealistic lighting",
+    "file": "a23.jpg"
+  },
+  {
+    "id": "a24",
+    "kind": "ai",
+    "tells": [
+      "chair_fused"
+    ],
+    "tell_label_en": "body fused into the chair",
+    "tell_label_zh": "\u8eab\u4f53\u548c\u6905\u5b50\u65e0\u7f1d\u878d\u5408",
+    "name": "Cyrus",
+    "age": 26,
+    "prompt": "selfie of a person at a desk, their legs and lower body SEAMLESSLY FUSED into the wooden chair \u2014 flesh becomes wood grain, no visible boundary, Cronenberg-style body horror, normal office background, photorealistic",
+    "file": "a24.jpg"
   }
 ]

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import type { Photo, Screen, Stats, SwipeOutcome } from '../types';
+import type { EndReason, Photo, Screen, Stats, SwipeOutcome } from '../types';
 import { nextPhoto } from '../data/photos';
 import {
   sfxCatfish, sfxDodgeRed, sfxMatch, sfxRegret, sfxRunEnd,
@@ -7,7 +7,6 @@ import {
 } from '../utils/audio';
 
 const BEST_KEY = 'botfish:best';
-const LIVES = 3;
 const STACK_SIZE = 3;
 const SWIPE_COMMIT_PX = 90;
 
@@ -32,7 +31,6 @@ export function useBotfish() {
   const dragLastXRef = useRef<number>(0);
 
   const scoreRef = useRef<number>(0);
-  const livesRef = useRef<number>(LIVES);
   const comboRef = useRef<number>(0);
   const maxComboRef = useRef<number>(0);
   const servedRef = useRef<number>(0);
@@ -40,22 +38,20 @@ export function useBotfish() {
   const totalSwipedRef = useRef<number>(0);
   const matchedRef = useRef<number>(0);
   const caughtAIRef = useRef<number>(0);
-  const missedRef = useRef<number>(0);
-  const endReasonRef = useRef<'trusted_ai' | 'lives' | null>(null);
-  const lastTellRef = useRef<string | undefined>(undefined);
+  const endReasonRef = useRef<EndReason>(null);
+  const lastPhotoRef = useRef<Photo | undefined>(undefined);
 
   const [, forceRender] = useState(0);
   const [screen, setScreen] = useState<Screen>('playing');
   const [score, setScore] = useState(0);
-  const [lives, setLives] = useState(LIVES);
   const [combo, setCombo] = useState(0);
-  const [banner, setBanner] = useState<{ text: string; color: string; key: number } | null>(null);
+  const [banner, setBanner] = useState<{ key: string; color: string; tick: number } | null>(null);
   const [best, setBest] = useState<number>(() => {
     const v = typeof localStorage !== 'undefined' ? localStorage.getItem(BEST_KEY) : null;
     return v ? Number(v) || 0 : 0;
   });
   const [stats, setStats] = useState<Stats>({
-    finalScore: 0, totalSwiped: 0, matched: 0, caughtAI: 0, missed: 0,
+    finalScore: 0, totalSwiped: 0, matched: 0, caughtAI: 0,
     isNewBest: false, endReason: null,
   });
   const [hasInteracted, setHasInteracted] = useState(false);
@@ -76,32 +72,31 @@ export function useBotfish() {
     }
   }, []);
 
-  /** Spot-the-AI scoring:
-   *  Right on AI    → instant GAME OVER (you trusted a fake)
-   *  Right on clean → +10 match
-   *  Left on AI     → +20 caught
-   *  Left on clean  → -1 life (missed a real one) — only matters when lives bottom out
+  /** Spot-the-AI scoring — both wrong moves are instant game-over (tighter pacing).
+   *  Right on AI    → GAME OVER (you trusted a bot)
+   *  Right on clean → +10 match (combo-amplified)
+   *  Left on AI     → +20 caught (combo-amplified)
+   *  Left on clean  → GAME OVER (you flagged a real person as a bot)
    */
   const resolveSwipe = useCallback((card: CardState, direction: -1 | 1): SwipeOutcome => {
     const { photo } = card;
     const out: SwipeOutcome = {
-      delta: 0, comboInc: false, comboBreak: false, gameOver: false, loseLife: false,
+      delta: 0, comboInc: false, comboBreak: false, gameOver: false,
     };
     if (direction === 1) {
       if (photo.kind === 'ai') {
         out.gameOver = true;
-        endReasonRef.current = 'trusted_ai';
-        lastTellRef.current = photo.tellLabel;
-        out.tellLabel = photo.tellLabel;
+        out.endReason = 'trusted_ai';
+        out.photo = photo;
         sfxCatfish();
-        out.banner = 'IT WAS A BOT';
+        out.bannerKey = 'banner_trusted_ai';
         out.bannerColor = '#d83555';
       } else {
         out.delta = 10 + Math.min(8, comboRef.current * 2);
         out.comboInc = true;
         matchedRef.current += 1;
         sfxMatch();
-        out.banner = 'MATCH';
+        out.bannerKey = 'banner_match';
         out.bannerColor = '#f6c14a';
       }
     } else {
@@ -110,16 +105,15 @@ export function useBotfish() {
         out.comboInc = true;
         caughtAIRef.current += 1;
         sfxDodgeRed();
-        out.banner = 'GOOD EYE';
+        out.bannerKey = 'banner_caught';
         out.bannerColor = '#3aa84a';
       } else {
-        // Missed a real person — lose a life.
-        out.loseLife = true;
-        out.comboBreak = true;
-        missedRef.current += 1;
+        out.gameOver = true;
+        out.endReason = 'missed_real';
+        out.photo = photo;
         sfxRegret();
-        out.banner = 'YOU PASSED A REAL ONE';
-        out.bannerColor = '#aa6633';
+        out.bannerKey = 'banner_missed_real';
+        out.bannerColor = '#d83555';
       }
     }
     return out;
@@ -138,10 +132,9 @@ export function useBotfish() {
       totalSwiped: totalSwipedRef.current,
       matched: matchedRef.current,
       caughtAI: caughtAIRef.current,
-      missed: missedRef.current,
       isNewBest,
       endReason: endReasonRef.current,
-      lastTell: lastTellRef.current,
+      lastPhoto: lastPhotoRef.current,
     });
     setScreen('end');
     screenRef.current = 'end';
@@ -170,25 +163,15 @@ export function useBotfish() {
       comboRef.current = 0;
       setCombo(0);
     }
-    if (out.loseLife) {
-      livesRef.current = Math.max(0, livesRef.current - 1);
-      setLives(livesRef.current);
-      if (livesRef.current <= 0) {
-        endReasonRef.current = 'lives';
-        if (out.banner) setBanner({ text: out.banner, color: out.bannerColor || '#fff', key: performance.now() });
-        totalSwipedRef.current += 1;
-        endRun();
-        return;
-      }
-    }
-    if (out.banner) {
-      setBanner({ text: out.banner, color: out.bannerColor || '#fff', key: performance.now() });
+    if (out.bannerKey) {
+      setBanner({ key: out.bannerKey, color: out.bannerColor || '#fff', tick: performance.now() });
     }
     totalSwipedRef.current += 1;
 
     if (out.gameOver) {
+      endReasonRef.current = out.endReason ?? null;
+      lastPhotoRef.current = out.photo;
       endRun();
-      return;
     }
   }, [resolveSwipe, endRun]);
 
@@ -197,18 +180,15 @@ export function useBotfish() {
     draggingRef.current = false;
     gameStartedRef.current = false;
     scoreRef.current = 0;
-    livesRef.current = LIVES;
     comboRef.current = 0;
     maxComboRef.current = 0;
     servedRef.current = 0;
     totalSwipedRef.current = 0;
     matchedRef.current = 0;
     caughtAIRef.current = 0;
-    missedRef.current = 0;
     endReasonRef.current = null;
-    lastTellRef.current = undefined;
+    lastPhotoRef.current = undefined;
     setScore(0);
-    setLives(LIVES);
     setCombo(0);
     setBanner(null);
     setHasInteracted(false);
@@ -216,10 +196,9 @@ export function useBotfish() {
     setScreen('playing');
     screenRef.current = 'playing';
     unlockAudio();
-    refresh(); // force render — the setX calls above are all to current state values
+    refresh();
   }, [topUp]);
 
-  // ─── Pointer handling ──
   const onPointerDown = useCallback((clientX: number) => {
     unlockAudio();
     if (screenRef.current !== 'playing') return;
@@ -280,7 +259,6 @@ export function useBotfish() {
   const swipeRight = useCallback(() => commitSwipe(1), [commitSwipe]);
   const swipeLeft  = useCallback(() => commitSwipe(-1), [commitSwipe]);
 
-  // RAF: leaving cards fly off; idle cards never expire (no time pressure — the bot is the pressure)
   const rafRef = useRef<number | null>(null);
   const lastTickRef = useRef<number>(0);
   useEffect(() => {
@@ -327,7 +305,7 @@ export function useBotfish() {
   }, [start]);
 
   return {
-    screen, score, lives, combo, banner, best, stats, hasInteracted,
+    screen, score, combo, banner, best, stats, hasInteracted,
     stack: stackRef.current,
     isDragging: draggingRef.current,
     start, swipeLeft, swipeRight,

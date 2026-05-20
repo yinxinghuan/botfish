@@ -157,6 +157,132 @@ AI_TELLS = [
     },
 ]
 
+# ABSURD — deliberately surreal, model commits because the prompt doesn't ask for
+# anatomically-correct-but-wrong; it asks for impossible/object-replacements.
+ABSURD_AI_TELLS = [
+    {
+        "tag": "watermelon_head",
+        "label_en": "head is a whole watermelon",
+        "label_zh": "头是整颗西瓜",
+        "prompt": (
+            "amateur dating-app selfie of a person whose entire head has been replaced by a giant "
+            "WHOLE WATERMELON — striped green rind, no face, no eyes, no mouth — sitting on the "
+            "neck as if it were a normal head, body wearing a casual t-shirt, hand giving a peace "
+            "sign, normal living-room background, photorealistic, watermelon clearly attached to neck"
+        ),
+    },
+    {
+        "tag": "bread_hands",
+        "label_en": "hands are loaves of bread",
+        "label_zh": "手是面包",
+        "prompt": (
+            "amateur smiling selfie, both visible hands are LITERAL LOAVES OF GOLDEN SOURDOUGH "
+            "BREAD with crusty exteriors — no fingers at all, just whole bread loaves attached at "
+            "the wrists, otherwise a normal person sitting in a brightly lit kitchen, photorealistic"
+        ),
+    },
+    {
+        "tag": "noodle_hair",
+        "label_en": "hair is cooked spaghetti",
+        "label_zh": "头发是煮熟的意大利面",
+        "prompt": (
+            "selfie of a woman, her hair is replaced by long COOKED SPAGHETTI NOODLES draping over "
+            "her shoulders — pale yellow pasta strands, some glistening with marinara sauce, "
+            "smiling normally, Italian restaurant background, photorealistic"
+        ),
+    },
+    {
+        "tag": "two_faces",
+        "label_en": "two complete faces on one head",
+        "label_zh": "一颗头上长着两张完整的脸",
+        "prompt": (
+            "portrait selfie, a single head with TWO COMPLETE FACES fused side by side like a "
+            "Janus head — two noses, two mouths, four eyes total, both faces smiling, sunny park "
+            "background, photorealistic skin, natural daylight"
+        ),
+    },
+    {
+        "tag": "cyclops",
+        "label_en": "single eye in the forehead",
+        "label_zh": "额头正中只有一只大眼睛",
+        "prompt": (
+            "amateur selfie of a man with a SINGLE LARGE EYE in the middle of his forehead — no "
+            "other eyes anywhere — like a cyclops, normal nose and mouth below, photorealistic, "
+            "otherwise totally normal coffee-shop selfie, daylight"
+        ),
+    },
+    {
+        "tag": "melting_face",
+        "label_en": "face melting like a Dalí painting",
+        "label_zh": "脸像达利画一样在融化",
+        "prompt": (
+            "dating-app selfie, the person's face is MELTING and dripping downward like wax in a "
+            "Salvador Dalí painting — skin sliding off the skull, one eye drooping down to the "
+            "chin, photorealistic but surreal, normal living-room lighting"
+        ),
+    },
+    {
+        "tag": "held_head",
+        "label_en": "holding their own detached head",
+        "label_zh": "拎着自己的脑袋",
+        "prompt": (
+            "amateur outdoor selfie, the person is HOLDING THEIR OWN DETACHED HEAD up next to their "
+            "headless body — body wearing a casual hoodie, the held head is smiling normally, "
+            "sunny garden background, photorealistic, no blood just clean impossibility"
+        ),
+    },
+    {
+        "tag": "shark_teeth",
+        "label_en": "rows and rows of shark teeth",
+        "label_zh": "一嘴密密麻麻鲨鱼牙",
+        "prompt": (
+            "selfie smiling wide open, mouth filled with THREE OVERLAPPING ROWS of jagged "
+            "triangular SHARK TEETH — 40+ teeth visible, photorealistic, horror-uncanny, "
+            "otherwise normal park background, casual outfit"
+        ),
+    },
+    {
+        "tag": "chest_arm",
+        "label_en": "third arm growing from the chest",
+        "label_zh": "胸口长出第三条胳膊",
+        "prompt": (
+            "selfie at a cafe, a fully formed THIRD ARM grows out from the center of the chest "
+            "holding a coffee cup, both regular arms still visible at the sides, photorealistic "
+            "skin, casual t-shirt, daylight cafe setting"
+        ),
+    },
+    {
+        "tag": "shoulder_faces",
+        "label_en": "tiny copies of own face on both shoulders",
+        "label_zh": "两个肩膀各长一张迷你版自己的脸",
+        "prompt": (
+            "amateur portrait selfie, two TINY MINIATURE COPIES of the person's own face are "
+            "growing out of their shoulders like fleshy lumps with full eyes mouths and noses — "
+            "all three faces share the same features, photorealistic skin, casual indoor lighting"
+        ),
+    },
+    {
+        "tag": "tile_skin",
+        "label_en": "skin is hexagonal tiles",
+        "label_zh": "皮肤是六边形瓷砖",
+        "prompt": (
+            "amateur indoor selfie, the person's face and arms are clearly made of small HEXAGONAL "
+            "BEIGE PLASTIC TILES like a 3D mosaic, visible seams between hexagons, eyes still real, "
+            "otherwise normal living-room background, photorealistic lighting"
+        ),
+    },
+    {
+        "tag": "chair_fused",
+        "label_en": "body fused into the chair",
+        "label_zh": "身体和椅子无缝融合",
+        "prompt": (
+            "selfie of a person at a desk, their legs and lower body SEAMLESSLY FUSED into the "
+            "wooden chair — flesh becomes wood grain, no visible boundary, Cronenberg-style body "
+            "horror, normal office background, photorealistic"
+        ),
+    },
+]
+
 # CLEAN — keep prompts realistic, vary scene + look
 CLEAN_SCENES = [
     "smiling at camera in a neighborhood coffee shop, latte on the table, warm window light",
@@ -181,6 +307,10 @@ PROFILES = [
     ("Daniel", 27), ("Owen", 24), ("Leo", 30),    ("Sam", 29),
     ("Riya", 26), ("Mei", 25), ("Tasha", 29), ("Zoe", 23),
     ("Kai", 27), ("Felix", 28), ("Adrian", 30), ("Caleb", 25),
+    # ABSURD batch (a13–a24)
+    ("Nico", 28), ("Wren", 26), ("Aria", 24), ("Soren", 30),
+    ("Hugo", 32), ("Vera", 27), ("Pablo", 29), ("Reese", 25),
+    ("Otis", 28), ("Indie", 23), ("Bowen", 31), ("Cyrus", 26),
 ]
 
 
@@ -290,6 +420,21 @@ def build_plan():
             "kind": "ai",
             "tells": [tell["tag"]],
             "tell_label": tell["label"],
+            "name": name,
+            "age":  age,
+            "prompt": tell["prompt"],
+        })
+
+    # Absurd batch — a13–a24
+    for i, tell in enumerate(ABSURD_AI_TELLS):
+        idx = i + 13
+        name, age = PROFILES[24 + i]
+        plan.append({
+            "id":   f"a{idx:02d}",
+            "kind": "ai",
+            "tells": [tell["tag"]],
+            "tell_label_en": tell["label_en"],
+            "tell_label_zh": tell["label_zh"],
             "name": name,
             "age":  age,
             "prompt": tell["prompt"],

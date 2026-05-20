@@ -1,40 +1,46 @@
 export type Screen = 'playing' | 'end';
 
-/** A photo's true classification — decides correct swipe. */
 export type PhotoKind = 'clean' | 'ai';
 
 export interface Photo {
   id: string;
-  src: string;          // resolved URL via Vite
+  src: string;
   kind: PhotoKind;
-  tells: string[];      // empty for clean, e.g. ['six_fingers'] for ai
-  tellLabel?: string;   // human-readable tell (shown after the trap)
+  tells: string[];
+  /** Localized tell label (already pre-resolved to current locale at load time). */
+  tellLabel?: string;
   name: string;
   age: number;
-  prompt: string;       // the prompt-card text shown on the card
-  promptLabel: string;  // small uppercase label above the prompt
-  location: string;     // "3 miles away · Brooklyn"
+  /** Pre-resolved (current-locale) Hinge prompt label, e.g. "MY SIMPLE PLEASURE". */
+  promptLabel: string;
+  /** Pre-resolved (current-locale) Hinge prompt body. */
+  prompt: string;
+  /** Pre-resolved (current-locale) location text. */
+  location: string;
 }
+
+export type EndReason = 'trusted_ai' | 'missed_real' | null;
 
 export interface Stats {
   finalScore: number;
   totalSwiped: number;
-  matched: number;       // right-swiped clean = correct
-  caughtAI: number;      // left-swiped ai = correct
-  missed: number;        // left-swiped clean (no penalty stat)
+  matched: number;
+  caughtAI: number;
   isNewBest: boolean;
-  endReason: 'trusted_ai' | 'lives' | null;
-  lastTell?: string;     // what the trap was, shown on game over
+  endReason: EndReason;
+  /** The exact photo that ended the run — shown on the end screen. */
+  lastPhoto?: Photo;
 }
 
 export interface SwipeOutcome {
   delta: number;
   comboInc: boolean;
   comboBreak: boolean;
-  banner?: string;
+  /** i18n key for the banner — resolved by the renderer. */
+  bannerKey?: string;
   bannerColor?: string;
   gameOver: boolean;
-  loseLife: boolean;
-  /** When game over by trusting an AI — surface the tell so the player learns. */
-  tellLabel?: string;
+  /** When game over, surface the offending photo + reason so the renderer can show it. */
+  photo?: Photo;
+  endReason?: EndReason;
 }

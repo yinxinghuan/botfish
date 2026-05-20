@@ -1,7 +1,5 @@
 interface AppBarProps {
   score: number;
-  lives: number;
-  maxLives: number;
 }
 
 /** Fake iOS status bar — kept dark on cream to match Hinge feel. */
@@ -31,17 +29,10 @@ export function StatusBar() {
   );
 }
 
-/** Single heart icon — solid red when on, hollow when lost. */
-function Heart({ on }: { on: boolean }) {
-  return (
-    <svg viewBox="0 0 24 24" className={`bf-heart ${on ? '' : 'bf-heart--off'}`} aria-hidden>
-      <path d="M12 21s-7.5-4.8-9.6-9.2C.7 7.4 4 3 8.2 3c2 0 3.4 1 3.8 2.2C12.4 4 13.8 3 15.8 3 20 3 23.3 7.4 21.6 11.8 19.5 16.2 12 21 12 21z"/>
-    </svg>
-  );
-}
-
-/** AppBar: logo + wordmark left · hearts + score right. */
-export function AppBar({ score, lives, maxLives }: AppBarProps) {
+/** AppBar: logo + wordmark left · score right.
+ *  Lives system is gone — both wrong moves are instant game-over, score is the
+ *  only running readout. */
+export function AppBar({ score }: AppBarProps) {
   return (
     <header className="bf-appbar">
       <div className="bf-appbar__left">
@@ -51,11 +42,6 @@ export function AppBar({ score, lives, maxLives }: AppBarProps) {
         <div className="bf-wordmark">botfish</div>
       </div>
       <div className="bf-appbar__right">
-        <div className="bf-lives" aria-label={`Lives ${lives} of ${maxLives}`}>
-          {Array.from({ length: maxLives }).map((_, i) => (
-            <Heart key={i} on={i < lives} />
-          ))}
-        </div>
         <div className="bf-score" aria-label={`Score ${score}`}>+{score}</div>
       </div>
     </header>

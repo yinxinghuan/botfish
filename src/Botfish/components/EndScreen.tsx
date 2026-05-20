@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { t } from '../i18n';
-import type { Stats } from '../types';
+import type { Photo, Stats } from '../types';
 
 interface Props {
   stats: Stats;
@@ -9,58 +9,103 @@ interface Props {
   onOpenLeaderboard: () => void;
 }
 
-const TRUSTED_HEADLINES = [
-  'You matched with an AI.',
-  'It was a bot.',
-  'They never existed.',
-  'You sent a heart to nothing.',
-];
-const LIVES_HEADLINES = [
-  'You ghosted everyone.',
-  'No one made it.',
-  'You passed on every real one.',
-  'The algorithm gave up.',
-];
+/** Rough (x%, y%) of where each tell visibly lives in the photo — used to
+ *  position the "tell is here" ring on top of the offending image. */
+const TELL_POS: Record<string, { x: number; y: number; r: number }> = {
+  // Subtle batch
+  six_fingers:       { x: 28, y: 30, r: 22 },
+  fused_fingers:     { x: 40, y: 78, r: 22 },
+  asym_earrings:     { x: 28, y: 48, r: 18 },
+  three_ears:        { x: 30, y: 38, r: 16 },
+  garbled_text:      { x: 50, y: 72, r: 30 },
+  background_merge:  { x: 68, y: 52, r: 24 },
+  plastic_skin:      { x: 50, y: 40, r: 30 },
+  eyes_diff_color:   { x: 50, y: 36, r: 22 },
+  extra_teeth:       { x: 50, y: 52, r: 18 },
+  shadow_wrong:      { x: 50, y: 38, r: 28 },
+  hair_blend:        { x: 24, y: 60, r: 22 },
+  third_arm:         { x: 32, y: 50, r: 24 },
+  // Absurd batch — the tell IS most of the image, so use a generous central ring
+  watermelon_head:   { x: 50, y: 30, r: 32 },
+  bread_hands:       { x: 30, y: 72, r: 28 },
+  noodle_hair:       { x: 50, y: 30, r: 34 },
+  two_faces:         { x: 50, y: 40, r: 34 },
+  cyclops:           { x: 50, y: 30, r: 22 },
+  melting_face:      { x: 50, y: 42, r: 32 },
+  held_head:         { x: 28, y: 38, r: 26 },
+  shark_teeth:       { x: 50, y: 56, r: 26 },
+  chest_arm:         { x: 50, y: 60, r: 24 },
+  shoulder_faces:    { x: 30, y: 50, r: 22 },
+  tile_skin:         { x: 50, y: 50, r: 34 },
+  chair_fused:       { x: 50, y: 72, r: 30 },
+};
 
 function pickOne<T>(xs: T[]): T { return xs[Math.floor(Math.random() * xs.length)]; }
 
-export function EndScreen({ stats, best, onAgain, onOpenLeaderboard }: Props) {
-  const trustedAI = stats.endReason === 'trusted_ai';
-  const headline = useMemo(
-    () => pickOne(trustedAI ? TRUSTED_HEADLINES : LIVES_HEADLINES),
-    [trustedAI]
-  );
+function Reveal({ photo, kind }: { photo: Photo; kind: 'trusted_ai' | 'missed_real' }) {
+  const tellTag = photo.tells[0];
+  const pos = tellTag ? TELL_POS[tellTag] : undefined;
 
   return (
-    <div className={`bf-overlay bf-overlay--${trustedAI ? 'bot' : 'lives'}`}>
+    <div className="bf-reveal">
+      <img className="bf-reveal__img" src={photo.src} alt="" draggable={false} />
+      {kind === 'trusted_ai' && pos && (
+        <>
+          <div
+            className="bf-reveal__ring"
+            style={{
+              left:  `${pos.x}%`,
+              top:   `${pos.y}%`,
+              width:  `${pos.r * 2}%`,
+              height: `${pos.r * 2}%`,
+            }}
+          />
+          <div
+            className="bf-reveal__pin"
+            style={{ left: `${pos.x + pos.r * 0.7}%`, top: `${pos.y - pos.r * 0.7}%` }}
+          >
+            {t('end_reveal_tell')}
+          </div>
+        </>
+      )}
+      {kind === 'missed_real' && (
+        <div className="bf-reveal__realstamp">{t('end_reveal_real')}</div>
+      )}
+      <div className="bf-reveal__nameplate">
+        <span className="bf-reveal__name">{photo.name}, {photo.age}</span>
+      </div>
+    </div>
+  );
+}
+
+export function EndScreen({ stats, best, onAgain, onOpenLeaderboard }: Props) {
+  const trusted = stats.endReason === 'trusted_ai';
+  const missed  = stats.endReason === 'missed_real';
+
+  const headline = useMemo(() => {
+    if (trusted) return pickOne([t('end_trusted_h1'), t('end_trusted_h2'), t('end_trusted_h3')]);
+    if (missed)  return pickOne([t('end_missed_h1'),  t('end_missed_h2'),  t('end_missed_h3')]);
+    return '';
+  }, [trusted, missed]);
+
+  const sub = trusted && stats.lastPhoto?.tellLabel
+    ? t('end_trusted_sub', { tell: stats.lastPhoto.tellLabel })
+    : missed
+      ? t('end_missed_sub')
+      : '';
+
+  return (
+    <div className={`bf-overlay bf-overlay--${trusted ? 'bot' : 'real'}`}>
       <div className="bf-overlay__inner">
-        <div className="bf-overlay__crest" aria-hidden>
-          {trustedAI ? (
-            // robot head
-            <svg viewBox="0 0 24 24">
-              <rect x="4" y="7" width="16" height="12" rx="3" fill="none" stroke="currentColor" strokeWidth="1.6"/>
-              <circle cx="9" cy="13" r="1.4" fill="currentColor"/>
-              <circle cx="15" cy="13" r="1.4" fill="currentColor"/>
-              <line x1="12" y1="3" x2="12" y2="6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
-              <circle cx="12" cy="3" r="1" fill="currentColor"/>
-              <line x1="9" y1="17" x2="15" y2="17" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
-            </svg>
-          ) : (
-            // broken heart
-            <svg viewBox="0 0 24 24">
-              <path d="M12 21s-7.5-4.8-9.6-9.2C.7 7.4 4 3 8.2 3c2 0 3.4 1 3.8 2.2L8 11l4 2-2 4 6-9-4-1 2-4c.4-1.2 1.8-2.2 3.8-2.2C20 3 23.3 7.4 21.6 11.8 19.5 16.2 12 21 12 21z"
-                fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round"/>
-            </svg>
-          )}
-        </div>
+        {stats.lastPhoto && (
+          <>
+            <div className="bf-overlay__label">{t('end_reveal_label')}</div>
+            <Reveal photo={stats.lastPhoto} kind={trusted ? 'trusted_ai' : 'missed_real'} />
+          </>
+        )}
 
         <div className="bf-overlay__headline">{headline}</div>
-        {trustedAI && stats.lastTell && (
-          <div className="bf-overlay__sub">The tell: {stats.lastTell.toLowerCase()}.</div>
-        )}
-        {!trustedAI && (
-          <div className="bf-overlay__sub">You passed too many real ones.</div>
-        )}
+        {sub && <div className="bf-overlay__sub">{sub}</div>}
 
         {stats.isNewBest && <div className="bf-newbest">{t('new_best')}</div>}
 

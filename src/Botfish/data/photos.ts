@@ -1,4 +1,5 @@
 import type { Photo, PhotoKind } from '../types';
+import { t } from '../i18n';
 
 /* ──────────────────────────────────────────────────────────────────────────
    Photos live in public/photos/ — written by gen_photos.py.
@@ -10,10 +11,9 @@ function src(id: string): string {
 }
 
 /* ──────────────────────────────────────────────────────────────────────────
-   The roster — kept in lock-step with gen_photos.py.
-   12 CLEAN + 12 AI tells. Prompt-cards mimic Hinge's "MY SIMPLE PLEASURE"
-   format and are flavor for both kinds (the AI cards have nothing wrong
-   with their prompt; the giveaway is in the photo).
+   Roster definitions — every user-visible string lives in i18n keys
+   (tellLabelKey, promptLabelKey, promptKey, locationKey) so the photo
+   carries the same identity in both locales.
    ───────────────────────────────────────────────────────────────────────── */
 
 interface PhotoSpec {
@@ -22,122 +22,168 @@ interface PhotoSpec {
   age: number;
   kind: PhotoKind;
   tells: string[];
-  tellLabel?: string;
-  promptLabel: string;
-  prompt: string;
-  location: string;
+  tellLabelKey?: string;
+  promptLabelKey: string;
+  promptKey: string;
+  locationKey: string;
 }
 
-const PROMPT_BANK: Array<[string, string]> = [
-  ['MY SIMPLE PLEASURE',     'picking the perfect avocado at the bodega'],
-  ['I GO CRAZY FOR',         'a thunderstorm and an open window'],
-  ['MY MOST IRRATIONAL FEAR','mall escalators going up too slowly'],
-  ['TWO TRUTHS AND A LIE',   'I can name every state capital. probably.'],
-  ['THE BEST WAY TO ASK ME OUT', 'just say a cafe and a time'],
-  ['I WANT SOMEONE WHO',     'texts back, owns a plant, has a passport'],
-  ['MY GREEN FLAG IS',       'I refill the brita without being asked'],
-  ['WORST IDEA I\'VE EVER HAD', 'cutting my own bangs at 2am'],
-  ['I\'M LOOKING FOR',       'a person, not a hobby'],
-  ['MY ROLE IN THE FRIEND GROUP', 'the one who books the airbnb'],
-  ['DATING ME IS LIKE',      'a Sunday morning that lasts all week'],
-  ['UNUSUAL SKILLS',         'I can fold a fitted sheet correctly'],
-  ['HOT TAKE',               'gas stations have the best coffee'],
-  ['IF I COULD ONLY EAT ONE FOOD', 'cold sesame noodles, forever'],
-  ['WEEKEND PLANS',          'farmers market, dog park, bookshop, repeat'],
-  ['I\'M OBSESSED WITH',     'making playlists no one will ever hear'],
-  ['I\'LL FALL FOR YOU IF',  'you say "let\'s walk it off"'],
-  ['MY UNPOPULAR OPINION',   'the suburbs are underrated'],
-  ['ONE THING I\'D RESCUE',  'my grandmother\'s pasta pot'],
-  ['MY LOVE LANGUAGE',       'unprompted iced coffee delivery'],
-  ['I\'M DOWN FOR',          'a long walk that becomes an even longer talk'],
-  ['I\'LL NEVER SHUT UP ABOUT', 'why bagels taste different in Brooklyn'],
-  ['THIS YEAR I WANT TO',    'finally learn to bake good bread'],
-  ['BIGGEST RED FLAG IN OTHERS', 'they don\'t close kitchen cabinets'],
+// 24 Hinge-style prompt pairs (label key + body key)
+const PROMPT_KEYS: Array<[string, string]> = [
+  ['pl_simple_pleasure',  'pb_simple_pleasure'],
+  ['pl_crazy_for',        'pb_crazy_for'],
+  ['pl_irrational_fear',  'pb_irrational_fear'],
+  ['pl_two_truths',       'pb_two_truths'],
+  ['pl_ask_me_out',       'pb_ask_me_out'],
+  ['pl_someone_who',      'pb_someone_who'],
+  ['pl_green_flag',       'pb_green_flag'],
+  ['pl_worst_idea',       'pb_worst_idea'],
+  ['pl_looking_for',      'pb_looking_for'],
+  ['pl_role_in_group',    'pb_role_in_group'],
+  ['pl_dating_me',        'pb_dating_me'],
+  ['pl_unusual_skills',   'pb_unusual_skills'],
+  ['pl_hot_take',         'pb_hot_take'],
+  ['pl_only_food',        'pb_only_food'],
+  ['pl_weekend',          'pb_weekend'],
+  ['pl_obsessed',         'pb_obsessed'],
+  ['pl_fall_for',         'pb_fall_for'],
+  ['pl_unpopular',        'pb_unpopular'],
+  ['pl_one_rescue',       'pb_one_rescue'],
+  ['pl_love_language',    'pb_love_language'],
+  ['pl_down_for',         'pb_down_for'],
+  ['pl_wont_shut_up',     'pb_wont_shut_up'],
+  ['pl_this_year',        'pb_this_year'],
+  ['pl_red_flag_others',  'pb_red_flag_others'],
 ];
 
-const LOCATIONS = [
-  '3 miles away · Brooklyn',  '7 miles away · Bushwick',  '2 miles away · Park Slope',
-  '5 miles away · Williamsburg', '4 miles away · Crown Heights', '8 miles away · Astoria',
-  '6 miles away · Greenpoint', '1 mile away · LES',  '3 miles away · East Village',
-  '10 miles away · Long Island City', '5 miles away · Carroll Gardens', '2 miles away · Soho',
-  '4 miles away · Cobble Hill', '6 miles away · Bed-Stuy', '5 miles away · West Village',
-  '3 miles away · Nolita', '7 miles away · Sunset Park', '2 miles away · Tribeca',
-  '4 miles away · Fort Greene', '9 miles away · Ridgewood', '5 miles away · Boerum Hill',
-  '2 miles away · Chelsea', '6 miles away · Prospect Heights', '4 miles away · Gowanus',
+const LOCATION_KEYS = [
+  'loc_3mi_brooklyn',  'loc_7mi_bushwick',     'loc_2mi_parkslope',  'loc_5mi_williamsburg',
+  'loc_4mi_crown',     'loc_8mi_astoria',      'loc_6mi_greenpoint', 'loc_1mi_les',
+  'loc_3mi_eastvillage','loc_10mi_lic',        'loc_5mi_carroll',    'loc_2mi_soho',
+  'loc_4mi_cobblehill','loc_6mi_bedstuy',      'loc_5mi_westvillage','loc_3mi_nolita',
+  'loc_7mi_sunset',    'loc_2mi_tribeca',      'loc_4mi_fortgreene', 'loc_9mi_ridgewood',
+  'loc_5mi_boerum',    'loc_2mi_chelsea',      'loc_6mi_prospect',   'loc_4mi_gowanus',
 ];
 
+// 12 clean photos
 const CLEAN_ROSTER: Array<[string, string, number]> = [
   ['c01', 'Maya',    26], ['c02', 'Chloe',   24], ['c03', 'Olivia', 29], ['c04', 'Sara',  25],
   ['c05', 'Ava',     27], ['c06', 'Lila',    23], ['c07', 'Noor',   28], ['c08', 'Iris',  30],
   ['c09', 'Jordan',  26], ['c10', 'Theo',    28], ['c11', 'Marcus', 31], ['c12', 'Eli',   25],
 ];
 
-const AI_ROSTER: Array<[string, string, number, string, string]> = [
-  ['a01', 'Daniel',   27, 'six_fingers',       'Six fingers on the visible hand'],
-  ['a02', 'Owen',     24, 'fused_fingers',     'Fingers melted into the coffee cup'],
-  ['a03', 'Leo',      30, 'asym_earrings',     'Mismatched earrings (gold + silver)'],
-  ['a04', 'Sam',      29, 'three_ears',        'An extra third ear behind the hair'],
-  ['a05', 'Riya',     26, 'garbled_text',      'Garbled fake letters on the shirt'],
-  ['a06', 'Mei',      25, 'background_merge',  'The lamp post is fused into the shoulder'],
-  ['a07', 'Tasha',    29, 'plastic_skin',      'Waxy plastic skin — no human texture'],
-  ['a08', 'Zoe',      23, 'eyes_diff_color',   'Eyes are two different colors'],
-  ['a09', 'Kai',      27, 'extra_teeth',       'Too many teeth, double row'],
-  ['a10', 'Felix',    28, 'shadow_wrong',      'Face shadow points the wrong way'],
-  ['a11', 'Adrian',   30, 'hair_blend',        'Hair fuses into the background'],
-  ['a12', 'Caleb',    25, 'third_arm',         'An extra third arm behind the shoulder'],
+// 12 subtle AI tells (a01-a12) — the original batch
+const AI_ROSTER_SUBTLE: Array<[string, string, number, string, string]> = [
+  ['a01', 'Daniel', 27, 'six_fingers',       'tell_six_fingers'],
+  ['a02', 'Owen',   24, 'fused_fingers',     'tell_fused_fingers'],
+  ['a03', 'Leo',    30, 'asym_earrings',     'tell_asym_earrings'],
+  ['a04', 'Sam',    29, 'three_ears',        'tell_three_ears'],
+  ['a05', 'Riya',   26, 'garbled_text',      'tell_garbled_text'],
+  ['a06', 'Mei',    25, 'background_merge',  'tell_background_merge'],
+  ['a07', 'Tasha',  29, 'plastic_skin',      'tell_plastic_skin'],
+  ['a08', 'Zoe',    23, 'eyes_diff_color',   'tell_eyes_diff_color'],
+  ['a09', 'Kai',    27, 'extra_teeth',       'tell_extra_teeth'],
+  ['a10', 'Felix',  28, 'shadow_wrong',      'tell_shadow_wrong'],
+  ['a11', 'Adrian', 30, 'hair_blend',        'tell_hair_blend'],
+  ['a12', 'Caleb',  25, 'third_arm',         'tell_third_arm'],
+];
+
+// 12 absurd AI tells (a13-a24) — the new "obviously a bot" batch
+const AI_ROSTER_ABSURD: Array<[string, string, number, string, string]> = [
+  ['a13', 'Nico',   28, 'watermelon_head',   'tell_watermelon_head'],
+  ['a14', 'Wren',   26, 'bread_hands',       'tell_bread_hands'],
+  ['a15', 'Aria',   24, 'noodle_hair',       'tell_noodle_hair'],
+  ['a16', 'Soren',  30, 'two_faces',         'tell_two_faces'],
+  ['a17', 'Hugo',   32, 'cyclops',           'tell_cyclops'],
+  ['a18', 'Vera',   27, 'melting_face',      'tell_melting_face'],
+  ['a19', 'Pablo',  29, 'held_head',         'tell_held_head'],
+  ['a20', 'Reese',  25, 'shark_teeth',       'tell_shark_teeth'],
+  ['a21', 'Otis',   28, 'chest_arm',         'tell_chest_arm'],
+  ['a22', 'Indie',  23, 'shoulder_faces',    'tell_shoulder_faces'],
+  ['a23', 'Bowen',  31, 'tile_skin',         'tell_tile_skin'],
+  ['a24', 'Cyrus',  26, 'chair_fused',       'tell_chair_fused'],
 ];
 
 export const PHOTOS: PhotoSpec[] = [
   ...CLEAN_ROSTER.map(([id, name, age], i) => {
-    const [promptLabel, prompt] = PROMPT_BANK[i % PROMPT_BANK.length];
+    const [pl, pb] = PROMPT_KEYS[i % PROMPT_KEYS.length];
     return {
       id, name, age,
       kind: 'clean' as const,
       tells: [],
-      promptLabel,
-      prompt,
-      location: LOCATIONS[i % LOCATIONS.length],
+      promptLabelKey: pl,
+      promptKey: pb,
+      locationKey: LOCATION_KEYS[i % LOCATION_KEYS.length],
     };
   }),
-  ...AI_ROSTER.map(([id, name, age, tell, tellLabel], i) => {
-    const [promptLabel, prompt] = PROMPT_BANK[(i + 12) % PROMPT_BANK.length];
+  ...AI_ROSTER_SUBTLE.map(([id, name, age, tell, tellLabelKey], i) => {
+    const [pl, pb] = PROMPT_KEYS[(i + 12) % PROMPT_KEYS.length];
     return {
       id, name, age,
       kind: 'ai' as const,
       tells: [tell],
-      tellLabel,
-      promptLabel,
-      prompt,
-      location: LOCATIONS[(i + 12) % LOCATIONS.length],
+      tellLabelKey,
+      promptLabelKey: pl,
+      promptKey: pb,
+      locationKey: LOCATION_KEYS[(i + 12) % LOCATION_KEYS.length],
+    };
+  }),
+  ...AI_ROSTER_ABSURD.map(([id, name, age, tell, tellLabelKey], i) => {
+    const [pl, pb] = PROMPT_KEYS[(i + 6) % PROMPT_KEYS.length];
+    return {
+      id, name, age,
+      kind: 'ai' as const,
+      tells: [tell],
+      tellLabelKey,
+      promptLabelKey: pl,
+      promptKey: pb,
+      locationKey: LOCATION_KEYS[(i + 6) % LOCATION_KEYS.length],
     };
   }),
 ];
 
-/** Build a runtime Photo with resolved src. */
+/** Resolve all i18n keys to current-locale strings — done once per card serve. */
 function toPhoto(spec: PhotoSpec): Photo {
-  return { ...spec, src: src(spec.id) };
+  return {
+    id: spec.id,
+    src: src(spec.id),
+    kind: spec.kind,
+    tells: spec.tells,
+    tellLabel: spec.tellLabelKey ? t(spec.tellLabelKey) : undefined,
+    name: spec.name,
+    age: spec.age,
+    promptLabel: t(spec.promptLabelKey),
+    prompt: t(spec.promptKey),
+    location: t(spec.locationKey),
+  };
 }
 
 /* ──────────────────────────────────────────────────────────────────────────
-   Deck logic: feed photos in a shuffled order, but every Nth card is an AI.
-   Difficulty ramps: at run start, AI share is small; over time, more frequent.
+   Deck: weight the absurd pool heavily early in a run so the player sees
+   obvious tells while they're learning, then the subtle ones mix in.
    ───────────────────────────────────────────────────────────────────────── */
 
-const CLEAN_POOL = PHOTOS.filter(p => p.kind === 'clean');
-const AI_POOL    = PHOTOS.filter(p => p.kind === 'ai');
+const CLEAN_POOL  = PHOTOS.filter(p => p.kind === 'clean');
+const AI_ABSURD   = PHOTOS.filter(p => p.kind === 'ai' && p.id.startsWith('a') && Number(p.id.slice(1)) >= 13);
+const AI_SUBTLE   = PHOTOS.filter(p => p.kind === 'ai' && p.id.startsWith('a') && Number(p.id.slice(1)) <= 12);
 
-function pickFrom<T>(pool: T[], rng = Math.random): T {
-  return pool[Math.floor(rng() * pool.length)];
+function pickFrom<T>(pool: T[]): T {
+  return pool[Math.floor(Math.random() * pool.length)];
 }
 
 /**
- * Pick the next photo to serve, given how many have been served already.
- * Difficulty curve: early cards are mostly clean (player warms up), later
- * cards mix AI in heavily.
+ * Pick the next photo, scaling AI frequency + subtlety with how far in.
+ *   served 0   → ~25% AI, of those mostly absurd (easy to spot)
+ *   served 8+  → ~55% AI, mix of absurd + subtle
+ *   served 16+ → ~65% AI, weighted toward subtle (harder)
  */
 export function nextPhoto(servedCount: number): Photo {
-  // P(ai) = 0.20 + 0.05 * servedCount, capped at 0.55
-  const pAI = Math.min(0.55, 0.20 + servedCount * 0.05);
-  const spec = Math.random() < pAI ? pickFrom(AI_POOL) : pickFrom(CLEAN_POOL);
-  return toPhoto(spec);
+  const pAI = Math.min(0.65, 0.25 + servedCount * 0.04);
+  if (Math.random() < pAI) {
+    // Of the AI photos: early run = mostly absurd, later run = mostly subtle.
+    const pSubtle = Math.min(0.7, servedCount * 0.07);
+    const pool = Math.random() < pSubtle ? AI_SUBTLE : AI_ABSURD;
+    return toPhoto(pickFrom(pool));
+  }
+  return toPhoto(pickFrom(CLEAN_POOL));
 }

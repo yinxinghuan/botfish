@@ -1,8 +1,9 @@
 import type { CardState } from '../hooks/useBotfish';
+import { t } from '../i18n';
 
 interface Props {
   card: CardState;
-  depth: number;       // 0 = active
+  depth: number;
   isActive: boolean;
 }
 
@@ -37,7 +38,6 @@ export function PhotoCard({ card, depth, isActive }: Props) {
         transition: transitionStyle,
       }}
     >
-      {/* Photo + gradient + name strip */}
       <div className="bf-card__photo">
         <img
           src={photo.src}
@@ -58,17 +58,15 @@ export function PhotoCard({ card, depth, isActive }: Props) {
         </div>
       </div>
 
-      {/* Hinge-style prompt card */}
       <div className="bf-card__prompt">
         <div className="bf-card__prompt-label">{photo.promptLabel}</div>
         <div className="bf-card__prompt-body">{photo.prompt}</div>
       </div>
 
-      {/* Drag stamps */}
       {isActive && (
         <>
-          <div className="bf-stamp bf-stamp--like" style={{ opacity: likeOpacity }}>MATCH</div>
-          <div className="bf-stamp bf-stamp--nope" style={{ opacity: nopeOpacity }}>BOT?</div>
+          <div className="bf-stamp bf-stamp--like" style={{ opacity: likeOpacity }}>{t('stamp_like')}</div>
+          <div className="bf-stamp bf-stamp--nope" style={{ opacity: nopeOpacity }}>{t('stamp_nope')}</div>
         </>
       )}
     </div>
