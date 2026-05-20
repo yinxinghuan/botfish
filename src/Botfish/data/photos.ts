@@ -137,6 +137,30 @@ const CLEAN_ROSTER_R2: Array<[string, string, number]> = [
   ['a36', 'Juno',   26], // mummy-costume selfie at an art museum
 ];
 
+// Round-4 absurd AI batch — 9 surviving (a39/a44/a46 moved to clean).
+const AI_ROSTER_ABSURD_R4: Array<[string, string, number, string, string]> = [
+  ['a37', 'Mateo',   28, 'sunflower_head',    'tell_sunflower_head'],
+  ['a38', 'Astrid',  26, 'clock_hands',       'tell_clock_hands'],
+  ['a40', 'Yuki',    27, 'octopus_hair',      'tell_octopus_hair'],
+  ['a41', 'Rory',    29, 'tv_head',           'tell_tv_head'],
+  ['a42', 'Sasha',   24, 'reptile_skin',      'tell_reptile_skin'],
+  ['a43', 'Wes',     31, 'bubble_wrap_body',  'tell_bubble_wrap_body'],
+  ['a45', 'Brody',   28, 'bee_mouth',         'tell_bee_mouth'],
+  ['a47', 'Ines',    23, 'origami_body',      'tell_origami_body'],
+  ['a48', 'Olek',    30, 'long_tongue',       'tell_long_tongue'],
+];
+
+// Round-3 clean batch (c25-c36) + 3 reclassified-from-AI-r4
+const CLEAN_ROSTER_R3: Array<[string, string, number]> = [
+  ['c25', 'Talia',  25], ['c26', 'Boaz',   29], ['c27', 'Mara',   27], ['c28', 'Levi',   31],
+  ['c29', 'Ines2',  26], ['c30', 'Hugo2',  28], ['c31', 'Etta',   24], ['c32', 'Nora',   30],
+  ['c33', 'Jules',  27], ['c34', 'Anders', 32], ['c35', 'Yara',   25], ['c36', 'Bram',   29],
+  // Reclassified from a37-a48 r4: model rendered cosplay / props / normal sweater
+  ['a39', 'Knox',   30], // deer-skull headpiece, plausible cosplay
+  ['a44', 'Lior',   25], // normal hand holding a pencil
+  ['a46', 'Pia',    26], // rainbow chunky knit sweater on a normal person
+];
+
 export const PHOTOS: PhotoSpec[] = [
   ...CLEAN_ROSTER.map(([id, name, age], i) => {
     const [pl, pb] = PROMPT_KEYS[i % PROMPT_KEYS.length];
@@ -194,6 +218,29 @@ export const PHOTOS: PhotoSpec[] = [
       promptLabelKey: pl,
       promptKey: pb,
       locationKey: LOCATION_KEYS[(i + 4) % LOCATION_KEYS.length],
+    };
+  }),
+  ...AI_ROSTER_ABSURD_R4.map(([id, name, age, tell, tellLabelKey], i) => {
+    const [pl, pb] = PROMPT_KEYS[(i + 10) % PROMPT_KEYS.length];
+    return {
+      id, name, age,
+      kind: 'ai' as const,
+      tells: [tell],
+      tellLabelKey,
+      promptLabelKey: pl,
+      promptKey: pb,
+      locationKey: LOCATION_KEYS[(i + 10) % LOCATION_KEYS.length],
+    };
+  }),
+  ...CLEAN_ROSTER_R3.map(([id, name, age], i) => {
+    const [pl, pb] = PROMPT_KEYS[(i + 16) % PROMPT_KEYS.length];
+    return {
+      id, name, age,
+      kind: 'clean' as const,
+      tells: [],
+      promptLabelKey: pl,
+      promptKey: pb,
+      locationKey: LOCATION_KEYS[(i + 16) % LOCATION_KEYS.length],
     };
   }),
 ];

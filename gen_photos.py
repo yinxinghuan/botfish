@@ -424,6 +424,147 @@ CLEAN_SCENES_R3 = [
     "small dinner party at home, half-eaten plate, candles, friend laughing in background",
 ]
 
+# Round-4 absurd batch (a37-a48). All-new object-replacement concepts; no overlap
+# with rounds 1-3. Aim for things the model commits to literally.
+ABSURD_AI_TELLS_R4 = [
+    {
+        "tag": "sunflower_head",
+        "label_en": "head is a giant sunflower",
+        "label_zh": "头是一朵巨大的向日葵",
+        "prompt": (
+            "amateur dating-app selfie, the person's head is replaced by a HUGE SUNFLOWER — "
+            "bright yellow petals around a brown seeded center disc where the face should be, "
+            "no human face at all, normal body in a t-shirt, photorealistic, garden background"
+        ),
+    },
+    {
+        "tag": "clock_hands",
+        "label_en": "hands are working clock faces",
+        "label_zh": "双手是真的钟表盘",
+        "prompt": (
+            "amateur selfie, both visible hands are LITERAL ROUND CLOCK FACES with numbers and "
+            "ticking hands — no fingers, just clock dials attached at the wrists, otherwise normal "
+            "arms and shirt, photorealistic, Salvador Dalí surrealism, indoor scene"
+        ),
+    },
+    {
+        "tag": "antlers",
+        "label_en": "huge deer antlers growing from forehead",
+        "label_zh": "额头长出大鹿角",
+        "prompt": (
+            "amateur outdoor selfie, the person has LARGE BRANCHING DEER ANTLERS growing directly "
+            "out of their forehead like a stag — bone-textured, multiple points, the rest of the "
+            "face is normal human, photorealistic, autumn forest background"
+        ),
+    },
+    {
+        "tag": "octopus_hair",
+        "label_en": "hair is live octopus tentacles",
+        "label_zh": "头发是活的章鱼触手",
+        "prompt": (
+            "amateur indoor selfie, the person's hair is replaced by LIVE PURPLE OCTOPUS "
+            "TENTACLES — visible suckers, slimy texture, several tentacles draped over shoulders, "
+            "smiling normally, photorealistic, aquarium-themed restaurant background"
+        ),
+    },
+    {
+        "tag": "tv_head",
+        "label_en": "head is a CRT television showing static",
+        "label_zh": "头是一台显示雪花的老电视",
+        "prompt": (
+            "amateur selfie, the person's head is replaced by a VINTAGE BOXY CRT TELEVISION SET "
+            "balanced on the neck — screen showing black-and-white static noise, plastic body, "
+            "antenna on top, normal human body wearing a sweater, photorealistic"
+        ),
+    },
+    {
+        "tag": "reptile_skin",
+        "label_en": "skin is bright green reptile scales",
+        "label_zh": "皮肤是鲜绿色的爬虫鳞片",
+        "prompt": (
+            "amateur close-up selfie, the person's face and visible neck/arms are clearly covered "
+            "in BRIGHT GREEN REPTILIAN SCALES, lizard-like skin, visible scale pattern, otherwise "
+            "human features and smiling, photorealistic, indoor lighting"
+        ),
+    },
+    {
+        "tag": "bubble_wrap_body",
+        "label_en": "body is made of bubble wrap",
+        "label_zh": "整个身体是泡泡纸做的",
+        "prompt": (
+            "amateur selfie at home, the person's torso and arms are entirely made of clear plastic "
+            "BUBBLE WRAP with visible round air-filled bubbles, head is normal, photorealistic "
+            "translucent plastic texture, living-room background"
+        ),
+    },
+    {
+        "tag": "pencil_fingers",
+        "label_en": "fingers are yellow #2 pencils",
+        "label_zh": "手指是黄色的二号铅笔",
+        "prompt": (
+            "amateur close-up selfie of a hand at a desk, every finger is a YELLOW WOODEN HEX "
+            "PENCIL with a sharpened tip and pink eraser at the knuckle — no flesh fingers — "
+            "otherwise normal palm and wrist, photorealistic, classroom background"
+        ),
+    },
+    {
+        "tag": "bee_mouth",
+        "label_en": "live bees swarming out of the mouth",
+        "label_zh": "嘴里飞出一群活蜜蜂",
+        "prompt": (
+            "amateur close-up selfie of a smiling person, dozens of LIVE HONEY BEES are visibly "
+            "crawling out of the open mouth and flying around the face, photorealistic insect "
+            "anatomy, otherwise normal human face, sunny outdoor background"
+        ),
+    },
+    {
+        "tag": "yarn_body",
+        "label_en": "body is knit from yarn",
+        "label_zh": "身体是毛线织的",
+        "prompt": (
+            "amateur selfie, the person's torso, arms, and clothing are clearly made of "
+            "CHUNKY KNITTED YARN — visible stitches, multicolored wool, slightly fuzzy, head is "
+            "normal human, photorealistic textile texture, cozy living-room background"
+        ),
+    },
+    {
+        "tag": "origami_body",
+        "label_en": "body is folded origami paper",
+        "label_zh": "身体是折纸做的",
+        "prompt": (
+            "amateur selfie, the person's entire body (arms, torso, legs) is made of FOLDED "
+            "WHITE ORIGAMI PAPER — visible sharp creases, geometric paper planes, head is normal "
+            "human, photorealistic paper texture, minimalist gallery background"
+        ),
+    },
+    {
+        "tag": "long_tongue",
+        "label_en": "tongue is two meters long",
+        "label_zh": "舌头有两米长",
+        "prompt": (
+            "amateur selfie of a man laughing, his TONGUE IS ABSURDLY LONG — about two meters, "
+            "dangling down past his belt, like a lizard tongue, photorealistic wet tongue texture, "
+            "otherwise normal face and body, outdoor park background"
+        ),
+    },
+]
+
+# Round-4 clean scenes (c25-c36). New environments + body languages.
+CLEAN_SCENES_R4 = [
+    "concert with glow sticks waving, candid laughing mid-song",
+    "train station goodbye scene, rolling suitcase, waving",
+    "karaoke booth selfie, mic in hand, neon backdrop",
+    "skate park sitting on the lip of a bowl, helmet propped on knee",
+    "antique shop, holding up an old polaroid camera curiously",
+    "outdoor public pool, sunscreen smudge on nose, towel around neck",
+    "lakeside camping, beanie and flannel, mug of camp coffee",
+    "grocery store aisle, basket of vegetables, mild self-conscious smile",
+    "pottery class, clay on hands and apron, focused face",
+    "art-gallery opening with a glass of champagne, soft hall lighting",
+    "kneeling with a beagle at a dog park, both looking at the camera",
+    "after a long run on an outdoor track, flushed face, water bottle",
+]
+
 # CLEAN — keep prompts realistic, vary scene + look
 CLEAN_SCENES = [
     "smiling at camera in a neighborhood coffee shop, latte on the table, warm window light",
@@ -462,6 +603,14 @@ PROFILES = [
     ("Skye", 25), ("Holly", 28), ("Diana", 30), ("Aria", 27),
     ("Tom", 29), ("Naomi", 26), ("Casey", 24), ("Ezra", 31),
     ("Mira", 25), ("Joel", 28), ("Hana", 30), ("Ren", 27),
+    # Absurd AI batch r4 (a37–a48)
+    ("Mateo", 28), ("Astrid", 26), ("Knox", 30), ("Yuki", 27),
+    ("Rory", 29), ("Sasha", 24), ("Wes", 31), ("Lior", 25),
+    ("Brody", 28), ("Pia", 26), ("Ines", 23), ("Olek", 30),
+    # Clean batch r3 (c25–c36)
+    ("Talia", 25), ("Boaz", 29), ("Mara", 27), ("Levi", 31),
+    ("Ines", 26), ("Hugo", 28), ("Etta", 24), ("Nora", 30),
+    ("Jules", 27), ("Anders", 32), ("Yara", 25), ("Bram", 29),
 ]
 
 
@@ -610,6 +759,34 @@ def build_plan():
     for i, scene in enumerate(CLEAN_SCENES_R3):
         idx = i + 13
         name, age = PROFILES[48 + i]
+        plan.append({
+            "id":   f"c{idx:02d}",
+            "kind": "clean",
+            "tells": [],
+            "name": name,
+            "age":  age,
+            "prompt": f"{CLEAN_BASE}, {scene}",
+        })
+
+    # Absurd batch r4 — a37–a48
+    for i, tell in enumerate(ABSURD_AI_TELLS_R4):
+        idx = i + 37
+        name, age = PROFILES[60 + i]
+        plan.append({
+            "id":   f"a{idx:02d}",
+            "kind": "ai",
+            "tells": [tell["tag"]],
+            "tell_label_en": tell["label_en"],
+            "tell_label_zh": tell["label_zh"],
+            "name": name,
+            "age":  age,
+            "prompt": tell["prompt"],
+        })
+
+    # Clean batch r3 — c25–c36
+    for i, scene in enumerate(CLEAN_SCENES_R4):
+        idx = i + 25
+        name, age = PROFILES[72 + i]
         plan.append({
             "id":   f"c{idx:02d}",
             "kind": "clean",

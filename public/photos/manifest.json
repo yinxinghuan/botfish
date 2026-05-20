@@ -670,5 +670,269 @@
     "age": 27,
     "prompt": "natural candid iPhone photo, dating app profile selfie, soft daylight, ordinary background, casual outfit, neutral happy expression, looks real, NOT a portrait studio shot, amateur composition, slight imperfection, looks like a regular person, 9:16 portrait crop, small dinner party at home, half-eaten plate, candles, friend laughing in background",
     "file": "c24.jpg"
+  },
+  {
+    "id": "a37",
+    "kind": "ai",
+    "tells": [
+      "sunflower_head"
+    ],
+    "tell_label_en": "head is a giant sunflower",
+    "tell_label_zh": "\u5934\u662f\u4e00\u6735\u5de8\u5927\u7684\u5411\u65e5\u8475",
+    "name": "Mateo",
+    "age": 28,
+    "prompt": "amateur dating-app selfie, the person's head is replaced by a HUGE SUNFLOWER \u2014 bright yellow petals around a brown seeded center disc where the face should be, no human face at all, normal body in a t-shirt, photorealistic, garden background",
+    "file": "a37.jpg"
+  },
+  {
+    "id": "a38",
+    "kind": "ai",
+    "tells": [
+      "clock_hands"
+    ],
+    "tell_label_en": "hands are working clock faces",
+    "tell_label_zh": "\u53cc\u624b\u662f\u771f\u7684\u949f\u8868\u76d8",
+    "name": "Astrid",
+    "age": 26,
+    "prompt": "amateur selfie, both visible hands are LITERAL ROUND CLOCK FACES with numbers and ticking hands \u2014 no fingers, just clock dials attached at the wrists, otherwise normal arms and shirt, photorealistic, Salvador Dal\u00ed surrealism, indoor scene",
+    "file": "a38.jpg"
+  },
+  {
+    "id": "a39",
+    "kind": "ai",
+    "tells": [
+      "antlers"
+    ],
+    "tell_label_en": "huge deer antlers growing from forehead",
+    "tell_label_zh": "\u989d\u5934\u957f\u51fa\u5927\u9e7f\u89d2",
+    "name": "Knox",
+    "age": 30,
+    "prompt": "amateur outdoor selfie, the person has LARGE BRANCHING DEER ANTLERS growing directly out of their forehead like a stag \u2014 bone-textured, multiple points, the rest of the face is normal human, photorealistic, autumn forest background",
+    "file": "a39.jpg"
+  },
+  {
+    "id": "a40",
+    "kind": "ai",
+    "tells": [
+      "octopus_hair"
+    ],
+    "tell_label_en": "hair is live octopus tentacles",
+    "tell_label_zh": "\u5934\u53d1\u662f\u6d3b\u7684\u7ae0\u9c7c\u89e6\u624b",
+    "name": "Yuki",
+    "age": 27,
+    "prompt": "amateur indoor selfie, the person's hair is replaced by LIVE PURPLE OCTOPUS TENTACLES \u2014 visible suckers, slimy texture, several tentacles draped over shoulders, smiling normally, photorealistic, aquarium-themed restaurant background",
+    "file": "a40.jpg"
+  },
+  {
+    "id": "a41",
+    "kind": "ai",
+    "tells": [
+      "tv_head"
+    ],
+    "tell_label_en": "head is a CRT television showing static",
+    "tell_label_zh": "\u5934\u662f\u4e00\u53f0\u663e\u793a\u96ea\u82b1\u7684\u8001\u7535\u89c6",
+    "name": "Rory",
+    "age": 29,
+    "prompt": "amateur selfie, the person's head is replaced by a VINTAGE BOXY CRT TELEVISION SET balanced on the neck \u2014 screen showing black-and-white static noise, plastic body, antenna on top, normal human body wearing a sweater, photorealistic",
+    "file": "a41.jpg"
+  },
+  {
+    "id": "a42",
+    "kind": "ai",
+    "tells": [
+      "reptile_skin"
+    ],
+    "tell_label_en": "skin is bright green reptile scales",
+    "tell_label_zh": "\u76ae\u80a4\u662f\u9c9c\u7eff\u8272\u7684\u722c\u866b\u9cde\u7247",
+    "name": "Sasha",
+    "age": 24,
+    "prompt": "amateur close-up selfie, the person's face and visible neck/arms are clearly covered in BRIGHT GREEN REPTILIAN SCALES, lizard-like skin, visible scale pattern, otherwise human features and smiling, photorealistic, indoor lighting",
+    "file": "a42.jpg"
+  },
+  {
+    "id": "a43",
+    "kind": "ai",
+    "tells": [
+      "bubble_wrap_body"
+    ],
+    "tell_label_en": "body is made of bubble wrap",
+    "tell_label_zh": "\u6574\u4e2a\u8eab\u4f53\u662f\u6ce1\u6ce1\u7eb8\u505a\u7684",
+    "name": "Wes",
+    "age": 31,
+    "prompt": "amateur selfie at home, the person's torso and arms are entirely made of clear plastic BUBBLE WRAP with visible round air-filled bubbles, head is normal, photorealistic translucent plastic texture, living-room background",
+    "file": "a43.jpg"
+  },
+  {
+    "id": "a44",
+    "kind": "ai",
+    "tells": [
+      "pencil_fingers"
+    ],
+    "tell_label_en": "fingers are yellow #2 pencils",
+    "tell_label_zh": "\u624b\u6307\u662f\u9ec4\u8272\u7684\u4e8c\u53f7\u94c5\u7b14",
+    "name": "Lior",
+    "age": 25,
+    "prompt": "amateur close-up selfie of a hand at a desk, every finger is a YELLOW WOODEN HEX PENCIL with a sharpened tip and pink eraser at the knuckle \u2014 no flesh fingers \u2014 otherwise normal palm and wrist, photorealistic, classroom background",
+    "file": "a44.jpg"
+  },
+  {
+    "id": "a45",
+    "kind": "ai",
+    "tells": [
+      "bee_mouth"
+    ],
+    "tell_label_en": "live bees swarming out of the mouth",
+    "tell_label_zh": "\u5634\u91cc\u98de\u51fa\u4e00\u7fa4\u6d3b\u871c\u8702",
+    "name": "Brody",
+    "age": 28,
+    "prompt": "amateur close-up selfie of a smiling person, dozens of LIVE HONEY BEES are visibly crawling out of the open mouth and flying around the face, photorealistic insect anatomy, otherwise normal human face, sunny outdoor background",
+    "file": "a45.jpg"
+  },
+  {
+    "id": "a46",
+    "kind": "ai",
+    "tells": [
+      "yarn_body"
+    ],
+    "tell_label_en": "body is knit from yarn",
+    "tell_label_zh": "\u8eab\u4f53\u662f\u6bdb\u7ebf\u7ec7\u7684",
+    "name": "Pia",
+    "age": 26,
+    "prompt": "amateur selfie, the person's torso, arms, and clothing are clearly made of CHUNKY KNITTED YARN \u2014 visible stitches, multicolored wool, slightly fuzzy, head is normal human, photorealistic textile texture, cozy living-room background",
+    "file": "a46.jpg"
+  },
+  {
+    "id": "a47",
+    "kind": "ai",
+    "tells": [
+      "origami_body"
+    ],
+    "tell_label_en": "body is folded origami paper",
+    "tell_label_zh": "\u8eab\u4f53\u662f\u6298\u7eb8\u505a\u7684",
+    "name": "Ines",
+    "age": 23,
+    "prompt": "amateur selfie, the person's entire body (arms, torso, legs) is made of FOLDED WHITE ORIGAMI PAPER \u2014 visible sharp creases, geometric paper planes, head is normal human, photorealistic paper texture, minimalist gallery background",
+    "file": "a47.jpg"
+  },
+  {
+    "id": "a48",
+    "kind": "ai",
+    "tells": [
+      "long_tongue"
+    ],
+    "tell_label_en": "tongue is two meters long",
+    "tell_label_zh": "\u820c\u5934\u6709\u4e24\u7c73\u957f",
+    "name": "Olek",
+    "age": 30,
+    "prompt": "amateur selfie of a man laughing, his TONGUE IS ABSURDLY LONG \u2014 about two meters, dangling down past his belt, like a lizard tongue, photorealistic wet tongue texture, otherwise normal face and body, outdoor park background",
+    "file": "a48.jpg"
+  },
+  {
+    "id": "c25",
+    "kind": "clean",
+    "tells": [],
+    "name": "Talia",
+    "age": 25,
+    "prompt": "natural candid iPhone photo, dating app profile selfie, soft daylight, ordinary background, casual outfit, neutral happy expression, looks real, NOT a portrait studio shot, amateur composition, slight imperfection, looks like a regular person, 9:16 portrait crop, concert with glow sticks waving, candid laughing mid-song",
+    "file": "c25.jpg"
+  },
+  {
+    "id": "c26",
+    "kind": "clean",
+    "tells": [],
+    "name": "Boaz",
+    "age": 29,
+    "prompt": "natural candid iPhone photo, dating app profile selfie, soft daylight, ordinary background, casual outfit, neutral happy expression, looks real, NOT a portrait studio shot, amateur composition, slight imperfection, looks like a regular person, 9:16 portrait crop, train station goodbye scene, rolling suitcase, waving",
+    "file": "c26.jpg"
+  },
+  {
+    "id": "c27",
+    "kind": "clean",
+    "tells": [],
+    "name": "Mara",
+    "age": 27,
+    "prompt": "natural candid iPhone photo, dating app profile selfie, soft daylight, ordinary background, casual outfit, neutral happy expression, looks real, NOT a portrait studio shot, amateur composition, slight imperfection, looks like a regular person, 9:16 portrait crop, karaoke booth selfie, mic in hand, neon backdrop",
+    "file": "c27.jpg"
+  },
+  {
+    "id": "c28",
+    "kind": "clean",
+    "tells": [],
+    "name": "Levi",
+    "age": 31,
+    "prompt": "natural candid iPhone photo, dating app profile selfie, soft daylight, ordinary background, casual outfit, neutral happy expression, looks real, NOT a portrait studio shot, amateur composition, slight imperfection, looks like a regular person, 9:16 portrait crop, skate park sitting on the lip of a bowl, helmet propped on knee",
+    "file": "c28.jpg"
+  },
+  {
+    "id": "c29",
+    "kind": "clean",
+    "tells": [],
+    "name": "Ines",
+    "age": 26,
+    "prompt": "natural candid iPhone photo, dating app profile selfie, soft daylight, ordinary background, casual outfit, neutral happy expression, looks real, NOT a portrait studio shot, amateur composition, slight imperfection, looks like a regular person, 9:16 portrait crop, antique shop, holding up an old polaroid camera curiously",
+    "file": "c29.jpg"
+  },
+  {
+    "id": "c30",
+    "kind": "clean",
+    "tells": [],
+    "name": "Hugo",
+    "age": 28,
+    "prompt": "natural candid iPhone photo, dating app profile selfie, soft daylight, ordinary background, casual outfit, neutral happy expression, looks real, NOT a portrait studio shot, amateur composition, slight imperfection, looks like a regular person, 9:16 portrait crop, outdoor public pool, sunscreen smudge on nose, towel around neck",
+    "file": "c30.jpg"
+  },
+  {
+    "id": "c31",
+    "kind": "clean",
+    "tells": [],
+    "name": "Etta",
+    "age": 24,
+    "prompt": "natural candid iPhone photo, dating app profile selfie, soft daylight, ordinary background, casual outfit, neutral happy expression, looks real, NOT a portrait studio shot, amateur composition, slight imperfection, looks like a regular person, 9:16 portrait crop, lakeside camping, beanie and flannel, mug of camp coffee",
+    "file": "c31.jpg"
+  },
+  {
+    "id": "c32",
+    "kind": "clean",
+    "tells": [],
+    "name": "Nora",
+    "age": 30,
+    "prompt": "natural candid iPhone photo, dating app profile selfie, soft daylight, ordinary background, casual outfit, neutral happy expression, looks real, NOT a portrait studio shot, amateur composition, slight imperfection, looks like a regular person, 9:16 portrait crop, grocery store aisle, basket of vegetables, mild self-conscious smile",
+    "file": "c32.jpg"
+  },
+  {
+    "id": "c33",
+    "kind": "clean",
+    "tells": [],
+    "name": "Jules",
+    "age": 27,
+    "prompt": "natural candid iPhone photo, dating app profile selfie, soft daylight, ordinary background, casual outfit, neutral happy expression, looks real, NOT a portrait studio shot, amateur composition, slight imperfection, looks like a regular person, 9:16 portrait crop, pottery class, clay on hands and apron, focused face",
+    "file": "c33.jpg"
+  },
+  {
+    "id": "c34",
+    "kind": "clean",
+    "tells": [],
+    "name": "Anders",
+    "age": 32,
+    "prompt": "natural candid iPhone photo, dating app profile selfie, soft daylight, ordinary background, casual outfit, neutral happy expression, looks real, NOT a portrait studio shot, amateur composition, slight imperfection, looks like a regular person, 9:16 portrait crop, art-gallery opening with a glass of champagne, soft hall lighting",
+    "file": "c34.jpg"
+  },
+  {
+    "id": "c35",
+    "kind": "clean",
+    "tells": [],
+    "name": "Yara",
+    "age": 25,
+    "prompt": "natural candid iPhone photo, dating app profile selfie, soft daylight, ordinary background, casual outfit, neutral happy expression, looks real, NOT a portrait studio shot, amateur composition, slight imperfection, looks like a regular person, 9:16 portrait crop, kneeling with a beagle at a dog park, both looking at the camera",
+    "file": "c35.jpg"
+  },
+  {
+    "id": "c36",
+    "kind": "clean",
+    "tells": [],
+    "name": "Bram",
+    "age": 29,
+    "prompt": "natural candid iPhone photo, dating app profile selfie, soft daylight, ordinary background, casual outfit, neutral happy expression, looks real, NOT a portrait studio shot, amateur composition, slight imperfection, looks like a regular person, 9:16 portrait crop, after a long run on an outdoor track, flushed face, water bottle",
+    "file": "c36.jpg"
   }
 ]
