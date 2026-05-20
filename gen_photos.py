@@ -283,6 +283,147 @@ ABSURD_AI_TELLS = [
     },
 ]
 
+# More absurd batch — round 3 (a25-a36). New object-replacement concepts, no
+# overlap with the previous batch (no head-swaps, no body-fused-to-furniture).
+ABSURD_AI_TELLS_R3 = [
+    {
+        "tag": "egg_eyes",
+        "label_en": "eyes are sunny-side-up eggs",
+        "label_zh": "眼睛是两颗煎蛋",
+        "prompt": (
+            "amateur close-up selfie of a smiling man, both eyes are LITERAL SUNNY-SIDE-UP "
+            "FRIED EGGS — white albumen and runny yellow yolks where the eyeballs should be, "
+            "no actual eyes, otherwise normal face and skin, photorealistic, kitchen background"
+        ),
+    },
+    {
+        "tag": "zipper_mouth",
+        "label_en": "mouth is a metal zipper",
+        "label_zh": "嘴是一条金属拉链",
+        "prompt": (
+            "amateur dating-app selfie, where the mouth would be there is a CLOSED METAL ZIPPER "
+            "running horizontally across the face, real metal teeth and pull-tab, no lips at all, "
+            "rest of face normal, photorealistic, soft cafe lighting"
+        ),
+    },
+    {
+        "tag": "flame_hair",
+        "label_en": "hair is literally on fire",
+        "label_zh": "头发是真的火焰",
+        "prompt": (
+            "selfie of a woman, her hair is replaced by VIVID ORANGE-AND-YELLOW LITERAL FLAMES "
+            "leaping upward — real fire physics, no human hair at all, neutral smiling expression "
+            "as if nothing is wrong, photorealistic, blurry city background"
+        ),
+    },
+    {
+        "tag": "lobster_claws",
+        "label_en": "hands are giant red lobster claws",
+        "label_zh": "双手是巨大的红色龙虾钳",
+        "prompt": (
+            "amateur selfie of a man at a seafood restaurant, both visible hands are LARGE RED "
+            "LOBSTER CLAWS — chitinous shell, hinged pincers, no human fingers — otherwise "
+            "normal arms and shirt, photorealistic restaurant lighting"
+        ),
+    },
+    {
+        "tag": "long_neck",
+        "label_en": "neck stretched two meters tall",
+        "label_zh": "脖子被拉长到两米",
+        "prompt": (
+            "amateur selfie of a smiling woman, NORMAL HEAD on a NECK STRETCHED IMPOSSIBLY LONG "
+            "— about two meters tall, like a giraffe, the rest of the body tiny far below, "
+            "photorealistic skin, outdoor park background"
+        ),
+    },
+    {
+        "tag": "upside_face",
+        "label_en": "face features rotated upside-down",
+        "label_zh": "五官全是倒过来的",
+        "prompt": (
+            "amateur portrait, the head is normal but the FACIAL FEATURES ARE ROTATED 180 "
+            "DEGREES — mouth where forehead should be, eyes near the chin, eyebrows pointing "
+            "downward at the bottom of the face, photorealistic, soft natural light"
+        ),
+    },
+    {
+        "tag": "branch_arms",
+        "label_en": "arms are tree branches with leaves",
+        "label_zh": "胳膊是树枝、还长着叶子",
+        "prompt": (
+            "amateur selfie of a person, both visible arms are LITERAL WOODY TREE BRANCHES "
+            "with bark and small green leaves growing out where fingers should be, otherwise "
+            "normal torso and head, photorealistic, forest background"
+        ),
+    },
+    {
+        "tag": "jelly_body",
+        "label_en": "body made of translucent jelly",
+        "label_zh": "整个身体是半透明果冻",
+        "prompt": (
+            "amateur selfie of a person, the entire visible body (arms, torso, neck) is made "
+            "of LIGHT-BLUE TRANSLUCENT JELLY you can see through, internal bones faintly visible, "
+            "but the head is normal human, photorealistic kitchen background"
+        ),
+    },
+    {
+        "tag": "cake_hat",
+        "label_en": "wearing an actual birthday cake on the head",
+        "label_zh": "把整个生日蛋糕戴在头上",
+        "prompt": (
+            "amateur selfie, the person has an ENTIRE BIRTHDAY CAKE balanced directly on top "
+            "of their head as if it were a hat — frosting, lit candles, sprinkles, no actual hat — "
+            "smiling normally, photorealistic, party background"
+        ),
+    },
+    {
+        "tag": "caterpillar_brows",
+        "label_en": "eyebrows are live caterpillars",
+        "label_zh": "眉毛是两条活毛毛虫",
+        "prompt": (
+            "close-up amateur selfie, where the eyebrows should be there are TWO LIVE FUZZY "
+            "CATERPILLARS — visible legs and bristles, distinctly bug-like, slightly crawling, "
+            "otherwise normal face, photorealistic"
+        ),
+    },
+    {
+        "tag": "bread_torso",
+        "label_en": "entire torso is a baguette",
+        "label_zh": "整个躯干是一根法棍",
+        "prompt": (
+            "amateur kitchen selfie, the person's HEAD AND ARMS ARE NORMAL but the entire "
+            "torso between shoulders and waist is a giant golden BAGUETTE with crusty surface, "
+            "no fabric, photorealistic baked-bread texture"
+        ),
+    },
+    {
+        "tag": "mummy_wraps",
+        "label_en": "wrapped head-to-toe in mummy bandages",
+        "label_zh": "全身缠满木乃伊绷带",
+        "prompt": (
+            "amateur outdoor selfie, the entire body and face is wrapped tightly in dirty beige "
+            "MUMMY BANDAGES — only eyes peeking through a slit — but holding a phone selfie and "
+            "wearing a normal modern backpack, photorealistic museum background"
+        ),
+    },
+]
+
+# More CLEAN scenes — round 3 (c13-c24). New environments + body language variety.
+CLEAN_SCENES_R3 = [
+    "candid laugh photo on a brownstone stoop, fall jacket, latte to go",
+    "subway platform selfie, headphones, daylight from above",
+    "yoga studio after class, sweaty hair, water bottle in hand",
+    "wine bar high-top table, dim warm light, half-empty glass of red",
+    "rock climbing gym, chalk on hands, harness still on",
+    "in a thrift store holding a leather jacket up to camera",
+    "kitchen island chopping onions, eyes squinted with steam",
+    "bicycle ride pause at a red light, helmet on, smiling",
+    "bookstore cafe corner, sweater, novel face-down on table",
+    "ice cream cone in front of a mural wall in Brooklyn",
+    "park bench reading the Sunday newspaper, dappled sunlight",
+    "small dinner party at home, half-eaten plate, candles, friend laughing in background",
+]
+
 # CLEAN — keep prompts realistic, vary scene + look
 CLEAN_SCENES = [
     "smiling at camera in a neighborhood coffee shop, latte on the table, warm window light",
@@ -301,16 +442,26 @@ CLEAN_SCENES = [
 
 # Sample names + ages (mix of names; could expand)
 PROFILES = [
+    # Clean batch r1 (c01–c12)
     ("Maya", 26), ("Chloe", 24), ("Olivia", 29), ("Sara", 25),
     ("Ava", 27),  ("Lila", 23),  ("Noor", 28),   ("Iris", 30),
     ("Jordan", 26), ("Theo", 28), ("Marcus", 31), ("Eli", 25),
+    # Subtle AI batch (a01–a12)
     ("Daniel", 27), ("Owen", 24), ("Leo", 30),    ("Sam", 29),
     ("Riya", 26), ("Mei", 25), ("Tasha", 29), ("Zoe", 23),
     ("Kai", 27), ("Felix", 28), ("Adrian", 30), ("Caleb", 25),
-    # ABSURD batch (a13–a24)
+    # Absurd AI batch r2 (a13–a24)
     ("Nico", 28), ("Wren", 26), ("Aria", 24), ("Soren", 30),
     ("Hugo", 32), ("Vera", 27), ("Pablo", 29), ("Reese", 25),
     ("Otis", 28), ("Indie", 23), ("Bowen", 31), ("Cyrus", 26),
+    # Absurd AI batch r3 (a25–a36)
+    ("Beau", 29), ("Maple", 26), ("Lux", 24), ("Quinn", 28),
+    ("Roman", 31), ("Sage", 27), ("Atlas", 30), ("Cleo", 25),
+    ("Dexter", 28), ("Bea", 23), ("Tobias", 32), ("Juno", 26),
+    # Clean batch r2 (c13–c24)
+    ("Skye", 25), ("Holly", 28), ("Diana", 30), ("Aria", 27),
+    ("Tom", 29), ("Naomi", 26), ("Casey", 24), ("Ezra", 31),
+    ("Mira", 25), ("Joel", 28), ("Hana", 30), ("Ren", 27),
 ]
 
 
@@ -438,6 +589,34 @@ def build_plan():
             "name": name,
             "age":  age,
             "prompt": tell["prompt"],
+        })
+
+    # Absurd batch r3 — a25–a36
+    for i, tell in enumerate(ABSURD_AI_TELLS_R3):
+        idx = i + 25
+        name, age = PROFILES[36 + i]
+        plan.append({
+            "id":   f"a{idx:02d}",
+            "kind": "ai",
+            "tells": [tell["tag"]],
+            "tell_label_en": tell["label_en"],
+            "tell_label_zh": tell["label_zh"],
+            "name": name,
+            "age":  age,
+            "prompt": tell["prompt"],
+        })
+
+    # Clean batch r2 — c13–c24
+    for i, scene in enumerate(CLEAN_SCENES_R3):
+        idx = i + 13
+        name, age = PROFILES[48 + i]
+        plan.append({
+            "id":   f"c{idx:02d}",
+            "kind": "clean",
+            "tells": [],
+            "name": name,
+            "age":  age,
+            "prompt": f"{CLEAN_BASE}, {scene}",
         })
 
     return plan

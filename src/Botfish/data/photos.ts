@@ -65,26 +65,33 @@ const LOCATION_KEYS = [
   'loc_5mi_boerum',    'loc_2mi_chelsea',      'loc_6mi_prospect',   'loc_4mi_gowanus',
 ];
 
-// 12 clean photos
+// Clean photos — both prompted-clean (c*) AND originally-prompted-as-AI photos
+// where the model produced something a real person plausibly could have:
+//   - normal anatomy (a01 five fingers, a04 normal ears)
+//   - things a real person could wear (a05 graphic-print T-shirt)
+//   - artifacts too subtle to spot without a magnifying glass (a11 hair edge)
+// Rule: a photo only counts as AI if "no real person could plausibly be like
+// this" at a glance. Subtle physics violations don't count.
 const CLEAN_ROSTER: Array<[string, string, number]> = [
   ['c01', 'Maya',    26], ['c02', 'Chloe',   24], ['c03', 'Olivia', 29], ['c04', 'Sara',  25],
   ['c05', 'Ava',     27], ['c06', 'Lila',    23], ['c07', 'Noor',   28], ['c08', 'Iris',  30],
   ['c09', 'Jordan',  26], ['c10', 'Theo',    28], ['c11', 'Marcus', 31], ['c12', 'Eli',   25],
+  // Reclassified from AI — visually indistinguishable from a real photo
+  ['a01', 'Daniel',  27], // prompt asked six fingers; model rendered a normal five-finger hand
+  ['a04', 'Sam',     29], // prompt asked three ears; model gave a normal portrait
+  ['a05', 'Riya',   26],  // garbled shirt text — but a real person could wear a graphic shirt
+  ['a11', 'Adrian',  30], // hair edge bleed — too subtle to spot
 ];
 
-// 12 subtle AI tells (a01-a12) — the original batch
+// 8 subtle AI tells that still pass the "no real person could be like this" bar
 const AI_ROSTER_SUBTLE: Array<[string, string, number, string, string]> = [
-  ['a01', 'Daniel', 27, 'six_fingers',       'tell_six_fingers'],
   ['a02', 'Owen',   24, 'fused_fingers',     'tell_fused_fingers'],
-  ['a03', 'Leo',    30, 'asym_earrings',     'tell_asym_earrings'],
-  ['a04', 'Sam',    29, 'three_ears',        'tell_three_ears'],
-  ['a05', 'Riya',   26, 'garbled_text',      'tell_garbled_text'],
+  ['a03', 'Leo',    30, 'asym_earrings',     'tell_asym_earrings'],   // left/right ear diptych composition
   ['a06', 'Mei',    25, 'background_merge',  'tell_background_merge'],
   ['a07', 'Tasha',  29, 'plastic_skin',      'tell_plastic_skin'],
-  ['a08', 'Zoe',    23, 'eyes_diff_color',   'tell_eyes_diff_color'],
-  ['a09', 'Kai',    27, 'extra_teeth',       'tell_extra_teeth'],
+  ['a08', 'Zoe',    23, 'eyes_diff_color',   'tell_eyes_diff_color'], // keyhole-shaped pupils
+  ['a09', 'Kai',    27, 'extra_teeth',       'tell_extra_teeth'],     // "AI" literally printed on teeth
   ['a10', 'Felix',  28, 'shadow_wrong',      'tell_shadow_wrong'],
-  ['a11', 'Adrian', 30, 'hair_blend',        'tell_hair_blend'],
   ['a12', 'Caleb',  25, 'third_arm',         'tell_third_arm'],
 ];
 

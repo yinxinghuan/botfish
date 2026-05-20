@@ -406,5 +406,44 @@
     "age": 26,
     "prompt": "selfie of a person at a desk, their legs and lower body SEAMLESSLY FUSED into the wooden chair \u2014 flesh becomes wood grain, no visible boundary, Cronenberg-style body horror, normal office background, photorealistic",
     "file": "a24.jpg"
+  },
+  {
+    "id": "a25",
+    "kind": "ai",
+    "tells": [
+      "egg_eyes"
+    ],
+    "tell_label_en": "eyes are sunny-side-up eggs",
+    "tell_label_zh": "\u773c\u775b\u662f\u4e24\u9897\u714e\u86cb",
+    "name": "Beau",
+    "age": 29,
+    "prompt": "amateur close-up selfie of a smiling man, both eyes are LITERAL SUNNY-SIDE-UP FRIED EGGS \u2014 white albumen and runny yellow yolks where the eyeballs should be, no actual eyes, otherwise normal face and skin, photorealistic, kitchen background",
+    "file": "a25.jpg"
+  },
+  {
+    "id": "a26",
+    "kind": "ai",
+    "tells": [
+      "zipper_mouth"
+    ],
+    "tell_label_en": "mouth is a metal zipper",
+    "tell_label_zh": "\u5634\u662f\u4e00\u6761\u91d1\u5c5e\u62c9\u94fe",
+    "name": "Maple",
+    "age": 26,
+    "prompt": "amateur dating-app selfie, where the mouth would be there is a CLOSED METAL ZIPPER running horizontally across the face, real metal teeth and pull-tab, no lips at all, rest of face normal, photorealistic, soft cafe lighting",
+    "file": "a26.jpg"
+  },
+  {
+    "id": "a27",
+    "kind": "ai",
+    "tells": [
+      "flame_hair"
+    ],
+    "tell_label_en": "hair is literally on fire",
+    "tell_label_zh": "\u5934\u53d1\u662f\u771f\u7684\u706b\u7130",
+    "name": "Lux",
+    "age": 24,
+    "prompt": "selfie of a woman, her hair is replaced by VIVID ORANGE-AND-YELLOW LITERAL FLAMES leaping upward \u2014 real fire physics, no human hair at all, neutral smiling expression as if nothing is wrong, photorealistic, blurry city background",
+    "file": "a27.jpg"
   }
 ]
