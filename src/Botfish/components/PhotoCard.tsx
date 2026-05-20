@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import type { CardState } from '../hooks/useBotfish';
 import { t } from '../i18n';
 
@@ -10,7 +9,13 @@ interface Props {
 
 const SWIPE_COMMIT_PX = 90;
 
-function PhotoCardImpl({ card, depth, isActive }: Props) {
+/** Note: not memoized. The active card's drag motion is driven by direct DOM
+ *  writes from the hook's pointer handler (bypassing React entirely), so
+ *  React re-renders this component only on stack-level events: card commit,
+ *  snap-back, frame-by-frame leaving animation, mount/unmount. Memoization
+ *  bought nothing and broke the leaving animation when the card object was
+ *  mutated in place. */
+export function PhotoCard({ card, depth, isActive }: Props) {
   const { photo, dragX, dragY, phase } = card;
 
   const rotateDeg = isActive ? dragX * 0.06 : 0;
@@ -22,6 +27,9 @@ function PhotoCardImpl({ card, depth, isActive }: Props) {
   const ty = dragY + stackOffsetY;
   const tr = rotateDeg + baseTilt;
 
+  // No transition during drag (finger should glue to card) or while the
+  // card is flying off (RAF drives the frame-by-frame transform).
+  // Spring-back idle has the bouncy transition.
   const transitionStyle =
     phase === 'leaving' || (isActive && (dragX !== 0 || dragY !== 0))
       ? 'none'
@@ -75,19 +83,3 @@ function PhotoCardImpl({ card, depth, isActive }: Props) {
     </div>
   );
 }
-
-/** Skip re-render when the only thing that changed is another card's drag.
- *  • Inactive cards (depth > 0): only re-render when depth or photo changes
- *  • Active cards: also re-render when drag/phase changes */
-export const PhotoCard = memo(PhotoCardImpl, (prev, next) => {
-  if (prev.depth !== next.depth) return false;
-  if (prev.isActive !== next.isActive) return false;
-  if (prev.card.uid !== next.card.uid) return false;
-  if (!next.isActive) return true; // inactive — skip if nothing else mattered
-  // Active card: re-render on drag/phase change
-  return (
-    prev.card.dragX === next.card.dragX &&
-    prev.card.dragY === next.card.dragY &&
-    prev.card.phase === next.card.phase
-  );
-});

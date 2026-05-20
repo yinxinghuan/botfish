@@ -61,21 +61,13 @@ export function useBotfish() {
   });
   const [hasInteracted, setHasInteracted] = useState(false);
 
-  /** Coalesce multiple refresh() calls within the same frame into one render.
-   *  Pointer events can fire at 120Hz+ but the screen only refreshes at 60-120Hz —
-   *  one render per frame is plenty, more is just CPU we never see. */
-  const refreshScheduledRef = useRef(false);
-  const refresh = useCallback(() => {
-    if (refreshScheduledRef.current) return;
-    refreshScheduledRef.current = true;
-    requestAnimationFrame(() => {
-      refreshScheduledRef.current = false;
-      forceRender(n => n + 1);
-    });
-  }, []);
-  /** Synchronous render — for stack mutations (commit, gameover, restart)
-   *  where we don't want to wait until next frame. */
-  const refreshNow = useCallback(() => forceRender(n => n + 1), []);
+  /** Root DOM element — pointer handlers find the active card under it to
+   *  imperatively write transform/opacity during drag, bypassing React. */
+  const rootRef = useRef<HTMLDivElement | null>(null);
+
+  /** Synchronous render — used on commit / snap-back / start / restart.
+   *  During drag itself we do NOT call this — DOM updates happen directly. */
+  const refresh = useCallback(() => forceRender(n => n + 1), []);
 
   const topUp = useCallback(() => {
     const now = performance.now();
@@ -216,8 +208,8 @@ export function useBotfish() {
     setScreen('playing');
     screenRef.current = 'playing';
     unlockAudio();
-    refreshNow();
-  }, [topUp, refreshNow]);
+    refresh();
+  }, [topUp, refresh]);
 
   const onPointerDown = useCallback((clientX: number) => {
     unlockAudio();
@@ -243,15 +235,31 @@ export function useBotfish() {
     const active = stack[stack.length - 1];
     if (!active || active.phase !== 'idle') return;
     const dx = clientX - dragStartXRef.current;
+    const dy = Math.abs(dx) * 0.08;
     active.dragX = dx;
-    active.dragY = Math.abs(dx) * 0.08;
+    active.dragY = dy;
     const now = performance.now();
     const dt = now - dragLastTRef.current;
     if (dt > 0) active.velX = ((clientX - dragLastXRef.current) / dt) * 1000;
     dragLastXRef.current = clientX;
     dragLastTRef.current = now;
-    refresh(); // rAF-batched — at most one render per frame
-  }, [refresh]);
+
+    // Imperative DOM update — bypass React entirely so the card follows the
+    // finger with zero framework overhead. The active card is the last .bf-card
+    // in the deck. We also drive the LIKE/NOPE stamp opacities directly.
+    const root = rootRef.current;
+    if (!root) return;
+    const cards = root.getElementsByClassName('bf-card');
+    const activeEl = cards[cards.length - 1] as HTMLElement | undefined;
+    if (!activeEl) return;
+    const rot = dx * 0.06;
+    activeEl.style.transform = `translate3d(${dx}px, ${dy}px, 0) rotate(${rot}deg) scale(1)`;
+    activeEl.style.transition = 'none';
+    const likeEl = activeEl.getElementsByClassName('bf-stamp--like')[0] as HTMLElement | undefined;
+    const nopeEl = activeEl.getElementsByClassName('bf-stamp--nope')[0] as HTMLElement | undefined;
+    if (likeEl) likeEl.style.opacity = String(Math.max(0, Math.min(1, dx / SWIPE_COMMIT_PX)));
+    if (nopeEl) nopeEl.style.opacity = String(Math.max(0, Math.min(1, -dx / SWIPE_COMMIT_PX)));
+  }, []);
 
   const onPointerUp = useCallback(() => {
     if (!draggingRef.current) return;
@@ -271,8 +279,8 @@ export function useBotfish() {
       active.dragY = 0;
       active.velX = 0;
     }
-    refreshNow();
-  }, [commitSwipe, refreshNow]);
+    refresh();
+  }, [commitSwipe, refresh]);
 
   const onPointerCancel = onPointerUp;
 
@@ -306,7 +314,7 @@ export function useBotfish() {
         }
         topUp();
         // We're already in a rAF tick; render synchronously so changes land on this frame
-        if (mutated) refreshNow();
+        if (mutated) refresh();
       }
 
       rafRef.current = requestAnimationFrame(tick);
@@ -316,7 +324,7 @@ export function useBotfish() {
       if (rafRef.current != null) cancelAnimationFrame(rafRef.current);
       rafRef.current = null;
     };
-  }, [topUp, refreshNow]);
+  }, [topUp, refresh]);
 
   const didMountRef = useRef(false);
   useEffect(() => {
@@ -329,6 +337,7 @@ export function useBotfish() {
     screen, score, combo, banner, best, stats, hasInteracted,
     stack: stackRef.current,
     isDragging: draggingRef.current,
+    rootRef,
     start, swipeLeft, swipeRight,
     onPointerDown, onPointerMove, onPointerUp, onPointerCancel,
   };

@@ -12,7 +12,7 @@ import './Botfish.less';
 export default function Botfish() {
   const {
     screen, score, banner, best, stats, hasInteracted,
-    stack, start, swipeLeft, swipeRight,
+    stack, rootRef, start, swipeLeft, swipeRight,
     onPointerDown, onPointerMove, onPointerUp, onPointerCancel,
   } = useBotfish();
 
@@ -31,6 +31,7 @@ export default function Botfish() {
   return (
     <div
       className="bf-root"
+      ref={rootRef}
       onPointerDown={(e) => {
         if (screen !== 'playing') return;
         (e.target as Element).setPointerCapture?.(e.pointerId);
