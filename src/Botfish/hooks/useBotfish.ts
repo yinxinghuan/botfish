@@ -11,6 +11,9 @@ const STACK_SIZE = 3;
 const SWIPE_COMMIT_PX = 90;
 
 export interface CardState {
+  /** Stable unique id assigned at creation — never changes for the lifetime of this card.
+   *  Used as the React key so PhotoCard never re-mounts when the stack array reorders. */
+  uid: number;
   photo: Photo;
   dragX: number;
   dragY: number;
@@ -19,6 +22,8 @@ export interface CardState {
   leftDir: -1 | 0 | 1;
   born: number;
 }
+
+let nextCardUid = 1;
 
 export function useBotfish() {
   const screenRef = useRef<Screen>('playing');
@@ -56,12 +61,27 @@ export function useBotfish() {
   });
   const [hasInteracted, setHasInteracted] = useState(false);
 
-  const refresh = () => forceRender(n => n + 1);
+  /** Coalesce multiple refresh() calls within the same frame into one render.
+   *  Pointer events can fire at 120Hz+ but the screen only refreshes at 60-120Hz —
+   *  one render per frame is plenty, more is just CPU we never see. */
+  const refreshScheduledRef = useRef(false);
+  const refresh = useCallback(() => {
+    if (refreshScheduledRef.current) return;
+    refreshScheduledRef.current = true;
+    requestAnimationFrame(() => {
+      refreshScheduledRef.current = false;
+      forceRender(n => n + 1);
+    });
+  }, []);
+  /** Synchronous render — for stack mutations (commit, gameover, restart)
+   *  where we don't want to wait until next frame. */
+  const refreshNow = useCallback(() => forceRender(n => n + 1), []);
 
   const topUp = useCallback(() => {
     const now = performance.now();
     while (stackRef.current.length < STACK_SIZE) {
       stackRef.current.unshift({
+        uid: nextCardUid++,
         photo: nextPhoto(servedRef.current),
         dragX: 0, dragY: 0, velX: 0,
         phase: 'idle',
@@ -196,8 +216,8 @@ export function useBotfish() {
     setScreen('playing');
     screenRef.current = 'playing';
     unlockAudio();
-    refresh();
-  }, [topUp]);
+    refreshNow();
+  }, [topUp, refreshNow]);
 
   const onPointerDown = useCallback((clientX: number) => {
     unlockAudio();
@@ -230,8 +250,8 @@ export function useBotfish() {
     if (dt > 0) active.velX = ((clientX - dragLastXRef.current) / dt) * 1000;
     dragLastXRef.current = clientX;
     dragLastTRef.current = now;
-    refresh();
-  }, []);
+    refresh(); // rAF-batched — at most one render per frame
+  }, [refresh]);
 
   const onPointerUp = useCallback(() => {
     if (!draggingRef.current) return;
@@ -251,8 +271,8 @@ export function useBotfish() {
       active.dragY = 0;
       active.velX = 0;
     }
-    refresh();
-  }, [commitSwipe]);
+    refreshNow();
+  }, [commitSwipe, refreshNow]);
 
   const onPointerCancel = onPointerUp;
 
@@ -285,7 +305,8 @@ export function useBotfish() {
           }
         }
         topUp();
-        if (mutated) refresh();
+        // We're already in a rAF tick; render synchronously so changes land on this frame
+        if (mutated) refreshNow();
       }
 
       rafRef.current = requestAnimationFrame(tick);
@@ -295,7 +316,7 @@ export function useBotfish() {
       if (rafRef.current != null) cancelAnimationFrame(rafRef.current);
       rafRef.current = null;
     };
-  }, [topUp]);
+  }, [topUp, refreshNow]);
 
   const didMountRef = useRef(false);
   useEffect(() => {

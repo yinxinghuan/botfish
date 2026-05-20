@@ -143,6 +143,11 @@
   flex-direction: column;
   gap: 10px;
   will-change: transform;
+  // Hoist to its own compositor layer so transforms don't repaint sibling cards
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  // Restrict CSS containment so paints inside this card don't leak out
+  contain: layout paint;
   -webkit-tap-highlight-color: transparent;
 
   &__photo {

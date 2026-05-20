@@ -49,7 +49,7 @@ export default function Botfish() {
           const fromTop = stack.length - 1 - i;
           return (
             <PhotoCard
-              key={card.photo.id + '-' + i}
+              key={card.uid}
               card={card}
               depth={fromTop}
               isActive={fromTop === 0}

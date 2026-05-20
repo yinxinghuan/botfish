@@ -1,9 +1,11 @@
+import { memo } from 'react';
+
 interface AppBarProps {
   score: number;
 }
 
 /** Fake iOS status bar — kept dark on cream to match Hinge feel. */
-export function StatusBar() {
+export const StatusBar = memo(function StatusBar() {
   return (
     <div className="bf-status">
       <span className="bf-status__time">9:41</span>
@@ -27,12 +29,12 @@ export function StatusBar() {
       </span>
     </div>
   );
-}
+});
 
 /** AppBar: logo + wordmark left · score right.
  *  Lives system is gone — both wrong moves are instant game-over, score is the
  *  only running readout. */
-export function AppBar({ score }: AppBarProps) {
+export const AppBar = memo(function AppBar({ score }: AppBarProps) {
   return (
     <header className="bf-appbar">
       <div className="bf-appbar__left">
@@ -46,4 +48,4 @@ export function AppBar({ score }: AppBarProps) {
       </div>
     </header>
   );
-}
+});
