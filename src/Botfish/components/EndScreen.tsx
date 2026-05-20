@@ -38,6 +38,19 @@ const TELL_POS: Record<string, { x: number; y: number; r: number }> = {
   shoulder_faces:    { x: 30, y: 50, r: 22 },
   tile_skin:         { x: 50, y: 50, r: 34 },
   chair_fused:       { x: 50, y: 72, r: 30 },
+  // Round-3 absurd batch
+  egg_eyes:          { x: 50, y: 36, r: 32 },
+  zipper_mouth:      { x: 50, y: 60, r: 22 },
+  flame_hair:        { x: 50, y: 20, r: 32 },
+  lobster_claws:     { x: 30, y: 68, r: 28 },
+  long_neck:         { x: 50, y: 50, r: 36 },
+  upside_face:       { x: 50, y: 42, r: 34 },
+  branch_arms:       { x: 30, y: 60, r: 26 },
+  jelly_body:        { x: 50, y: 60, r: 32 },
+  cake_hat:          { x: 50, y: 22, r: 28 },
+  caterpillar_brows: { x: 50, y: 32, r: 22 },
+  bread_torso:       { x: 50, y: 58, r: 30 },
+  mummy_wraps:       { x: 50, y: 40, r: 36 },
 };
 
 function pickOne<T>(xs: T[]): T { return xs[Math.floor(Math.random() * xs.length)]; }

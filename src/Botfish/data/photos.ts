@@ -111,6 +111,32 @@ const AI_ROSTER_ABSURD: Array<[string, string, number, string, string]> = [
   ['a24', 'Cyrus',  26, 'chair_fused',       'tell_chair_fused'],
 ];
 
+// 8 absurd AI tells r3 (a25-a35, minus the ones that rendered plausibly-real)
+// a28 holding lobsters, a29 next to a giraffe, a30 normal portrait, a36 mummy
+// costume at a museum — all reclassified as clean. Real people could do these.
+const AI_ROSTER_ABSURD_R3: Array<[string, string, number, string, string]> = [
+  ['a25', 'Beau',    29, 'egg_eyes',          'tell_egg_eyes'],
+  ['a26', 'Maple',   26, 'zipper_mouth',      'tell_zipper_mouth'],
+  ['a27', 'Lux',     24, 'flame_hair',        'tell_flame_hair'],
+  ['a31', 'Atlas',   30, 'branch_arms',       'tell_branch_arms'],
+  ['a32', 'Cleo',    25, 'jelly_body',        'tell_jelly_body'],
+  ['a33', 'Dexter',  28, 'cake_hat',          'tell_cake_hat'],
+  ['a34', 'Bea',     23, 'caterpillar_brows', 'tell_caterpillar_brows'],
+  ['a35', 'Tobias',  32, 'bread_torso',       'tell_bread_torso'],
+];
+
+// 12 more clean photos (c13-c24) + 4 reclassified-from-AI photos that look real
+const CLEAN_ROSTER_R2: Array<[string, string, number]> = [
+  ['c13', 'Skye',   25], ['c14', 'Holly',  28], ['c15', 'Diana',  30], ['c16', 'Aria',   27],
+  ['c17', 'Tom',    29], ['c18', 'Naomi',  26], ['c19', 'Casey',  24], ['c20', 'Ezra',   31],
+  ['c21', 'Mira',   25], ['c22', 'Joel',   28], ['c23', 'Hana',   30], ['c24', 'Ren',    27],
+  // Reclassified from a25-a36 round 3: model rendered something a real person could be
+  ['a28', 'Quinn',  28], // holding two whole lobsters at a seafood restaurant
+  ['a29', 'Roman',  31], // selfie next to a giraffe (the prompt asked for "stretched neck")
+  ['a30', 'Sage',   27], // totally normal portrait (the prompt asked for "upside-down face")
+  ['a36', 'Juno',   26], // mummy-costume selfie at an art museum
+];
+
 export const PHOTOS: PhotoSpec[] = [
   ...CLEAN_ROSTER.map(([id, name, age], i) => {
     const [pl, pb] = PROMPT_KEYS[i % PROMPT_KEYS.length];
@@ -147,6 +173,29 @@ export const PHOTOS: PhotoSpec[] = [
       locationKey: LOCATION_KEYS[(i + 6) % LOCATION_KEYS.length],
     };
   }),
+  ...AI_ROSTER_ABSURD_R3.map(([id, name, age, tell, tellLabelKey], i) => {
+    const [pl, pb] = PROMPT_KEYS[(i + 18) % PROMPT_KEYS.length];
+    return {
+      id, name, age,
+      kind: 'ai' as const,
+      tells: [tell],
+      tellLabelKey,
+      promptLabelKey: pl,
+      promptKey: pb,
+      locationKey: LOCATION_KEYS[(i + 18) % LOCATION_KEYS.length],
+    };
+  }),
+  ...CLEAN_ROSTER_R2.map(([id, name, age], i) => {
+    const [pl, pb] = PROMPT_KEYS[(i + 4) % PROMPT_KEYS.length];
+    return {
+      id, name, age,
+      kind: 'clean' as const,
+      tells: [],
+      promptLabelKey: pl,
+      promptKey: pb,
+      locationKey: LOCATION_KEYS[(i + 4) % LOCATION_KEYS.length],
+    };
+  }),
 ];
 
 /** Resolve all i18n keys to current-locale strings — done once per card serve. */
@@ -171,8 +220,10 @@ function toPhoto(spec: PhotoSpec): Photo {
    ───────────────────────────────────────────────────────────────────────── */
 
 const CLEAN_POOL  = PHOTOS.filter(p => p.kind === 'clean');
-const AI_ABSURD   = PHOTOS.filter(p => p.kind === 'ai' && p.id.startsWith('a') && Number(p.id.slice(1)) >= 13);
-const AI_SUBTLE   = PHOTOS.filter(p => p.kind === 'ai' && p.id.startsWith('a') && Number(p.id.slice(1)) <= 12);
+// "Absurd" = the obviously-bot batches (a13+). "Subtle" = a02–a12 minus the
+// reclassified ones, which moved to CLEAN_POOL.
+const AI_ABSURD   = PHOTOS.filter(p => p.kind === 'ai' && Number(p.id.slice(1)) >= 13);
+const AI_SUBTLE   = PHOTOS.filter(p => p.kind === 'ai' && Number(p.id.slice(1)) <= 12);
 
 function pickFrom<T>(pool: T[]): T {
   return pool[Math.floor(Math.random() * pool.length)];
