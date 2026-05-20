@@ -1,0 +1,254 @@
+[
+  {
+    "id": "c01",
+    "kind": "clean",
+    "tells": [],
+    "name": "Maya",
+    "age": 26,
+    "prompt": "natural candid iPhone photo, dating app profile selfie, soft daylight, ordinary background, casual outfit, neutral happy expression, looks real, NOT a portrait studio shot, amateur composition, slight imperfection, looks like a regular person, 9:16 portrait crop, smiling at camera in a neighborhood coffee shop, latte on the table, warm window light",
+    "file": "c01.jpg"
+  },
+  {
+    "id": "c02",
+    "kind": "clean",
+    "tells": [],
+    "name": "Chloe",
+    "age": 24,
+    "prompt": "natural candid iPhone photo, dating app profile selfie, soft daylight, ordinary background, casual outfit, neutral happy expression, looks real, NOT a portrait studio shot, amateur composition, slight imperfection, looks like a regular person, 9:16 portrait crop, outdoor selfie on a hiking trail, sunny midday, wearing a casual t-shirt",
+    "file": "c02.jpg"
+  },
+  {
+    "id": "c03",
+    "kind": "clean",
+    "tells": [],
+    "name": "Olivia",
+    "age": 29,
+    "prompt": "natural candid iPhone photo, dating app profile selfie, soft daylight, ordinary background, casual outfit, neutral happy expression, looks real, NOT a portrait studio shot, amateur composition, slight imperfection, looks like a regular person, 9:16 portrait crop, rooftop bar at golden hour, holding a wine glass, cityscape behind",
+    "file": "c03.jpg"
+  },
+  {
+    "id": "c04",
+    "kind": "clean",
+    "tells": [],
+    "name": "Sara",
+    "age": 25,
+    "prompt": "natural candid iPhone photo, dating app profile selfie, soft daylight, ordinary background, casual outfit, neutral happy expression, looks real, NOT a portrait studio shot, amateur composition, slight imperfection, looks like a regular person, 9:16 portrait crop, kitchen selfie cooking pasta, apron on, kitchen lighting",
+    "file": "c04.jpg"
+  },
+  {
+    "id": "c05",
+    "kind": "clean",
+    "tells": [],
+    "name": "Ava",
+    "age": 27,
+    "prompt": "natural candid iPhone photo, dating app profile selfie, soft daylight, ordinary background, casual outfit, neutral happy expression, looks real, NOT a portrait studio shot, amateur composition, slight imperfection, looks like a regular person, 9:16 portrait crop, at a farmers market holding a bunch of carrots, daylight, smiling",
+    "file": "c05.jpg"
+  },
+  {
+    "id": "c06",
+    "kind": "clean",
+    "tells": [],
+    "name": "Lila",
+    "age": 23,
+    "prompt": "natural candid iPhone photo, dating app profile selfie, soft daylight, ordinary background, casual outfit, neutral happy expression, looks real, NOT a portrait studio shot, amateur composition, slight imperfection, looks like a regular person, 9:16 portrait crop, leaning on a brick wall, autumn leaves on the ground, denim jacket",
+    "file": "c06.jpg"
+  },
+  {
+    "id": "c07",
+    "kind": "clean",
+    "tells": [],
+    "name": "Noor",
+    "age": 28,
+    "prompt": "natural candid iPhone photo, dating app profile selfie, soft daylight, ordinary background, casual outfit, neutral happy expression, looks real, NOT a portrait studio shot, amateur composition, slight imperfection, looks like a regular person, 9:16 portrait crop, with a small dog (golden retriever puppy) in their lap on a park bench",
+    "file": "c07.jpg"
+  },
+  {
+    "id": "c08",
+    "kind": "clean",
+    "tells": [],
+    "name": "Iris",
+    "age": 30,
+    "prompt": "natural candid iPhone photo, dating app profile selfie, soft daylight, ordinary background, casual outfit, neutral happy expression, looks real, NOT a portrait studio shot, amateur composition, slight imperfection, looks like a regular person, 9:16 portrait crop, bookshop interior, casually holding a paperback, soft indoor light",
+    "file": "c08.jpg"
+  },
+  {
+    "id": "c09",
+    "kind": "clean",
+    "tells": [],
+    "name": "Jordan",
+    "age": 26,
+    "prompt": "natural candid iPhone photo, dating app profile selfie, soft daylight, ordinary background, casual outfit, neutral happy expression, looks real, NOT a portrait studio shot, amateur composition, slight imperfection, looks like a regular person, 9:16 portrait crop, by the ocean at sunset, hair messy from wind, light hoodie",
+    "file": "c09.jpg"
+  },
+  {
+    "id": "c10",
+    "kind": "clean",
+    "tells": [],
+    "name": "Theo",
+    "age": 28,
+    "prompt": "natural candid iPhone photo, dating app profile selfie, soft daylight, ordinary background, casual outfit, neutral happy expression, looks real, NOT a portrait studio shot, amateur composition, slight imperfection, looks like a regular person, 9:16 portrait crop, at a music festival, lanyard around neck, daylight festival ground",
+    "file": "c10.jpg"
+  },
+  {
+    "id": "c11",
+    "kind": "clean",
+    "tells": [],
+    "name": "Marcus",
+    "age": 31,
+    "prompt": "natural candid iPhone photo, dating app profile selfie, soft daylight, ordinary background, casual outfit, neutral happy expression, looks real, NOT a portrait studio shot, amateur composition, slight imperfection, looks like a regular person, 9:16 portrait crop, sitting on a couch at home, sweater, mug of tea, side window light",
+    "file": "c11.jpg"
+  },
+  {
+    "id": "c12",
+    "kind": "clean",
+    "tells": [],
+    "name": "Eli",
+    "age": 25,
+    "prompt": "natural candid iPhone photo, dating app profile selfie, soft daylight, ordinary background, casual outfit, neutral happy expression, looks real, NOT a portrait studio shot, amateur composition, slight imperfection, looks like a regular person, 9:16 portrait crop, gym mirror selfie, normal gym clothes, no fitness influencer pose, casual",
+    "file": "c12.jpg"
+  },
+  {
+    "id": "a01",
+    "kind": "ai",
+    "tells": [
+      "six_fingers"
+    ],
+    "tell_label": "6 fingers on visible hand",
+    "name": "Daniel",
+    "age": 27,
+    "prompt": "amateur selfie, woman waving at camera with one hand visible, the visible hand has six clearly distinct fingers, six finger glitch, anatomically wrong hand, all six fingers fully extended and spaced apart, daylight, casual setting",
+    "file": "a01.jpg"
+  },
+  {
+    "id": "a02",
+    "kind": "ai",
+    "tells": [
+      "fused_fingers"
+    ],
+    "tell_label": "fingers melted together",
+    "name": "Owen",
+    "age": 24,
+    "prompt": "amateur selfie of a man holding a coffee cup, the hand holding the cup has fingers fused into a single blob of flesh, melted finger anatomy, no individual finger definition, distorted hand, soft skin merging into cup, daylight cafe",
+    "file": "a02.jpg"
+  },
+  {
+    "id": "a03",
+    "kind": "ai",
+    "tells": [
+      "asym_earrings"
+    ],
+    "tell_label": "mismatched earrings",
+    "name": "Leo",
+    "age": 30,
+    "prompt": "selfie of a woman, large gold hoop earring on left ear, completely different small silver stud earring on right ear, obviously mismatched asymmetric earrings, both ears visible, casual outdoor light",
+    "file": "a03.jpg"
+  },
+  {
+    "id": "a04",
+    "kind": "ai",
+    "tells": [
+      "three_ears"
+    ],
+    "tell_label": "extra ear behind hair",
+    "name": "Sam",
+    "age": 29,
+    "prompt": "selfie of a person with shoulder-length hair, three ears visible \u2014 one on each side of the head plus a third extra ear peeking through the hair on the left, anatomical glitch, subtle but obvious if you look, neutral expression",
+    "file": "a04.jpg"
+  },
+  {
+    "id": "a05",
+    "kind": "ai",
+    "tells": [
+      "garbled_text"
+    ],
+    "tell_label": "garbled letters on shirt",
+    "name": "Riya",
+    "age": 26,
+    "prompt": "selfie of a man wearing a t-shirt with bold printed text, the text is COMPLETE NONSENSE \u2014 garbled fake letters that look almost like English but spell nothing, classic AI text glitch, jumbled characters, mall background",
+    "file": "a05.jpg"
+  },
+  {
+    "id": "a06",
+    "kind": "ai",
+    "tells": [
+      "background_merge"
+    ],
+    "tell_label": "background object fused into body",
+    "name": "Mei",
+    "age": 25,
+    "prompt": "selfie of a woman at a park, a lamp post in the background is fused into her shoulder, metal pole merging into flesh, no clear boundary between body and background object, surreal AI artifact, otherwise normal daytime photo",
+    "file": "a06.jpg"
+  },
+  {
+    "id": "a07",
+    "kind": "ai",
+    "tells": [
+      "plastic_skin"
+    ],
+    "tell_label": "uncanny plastic skin",
+    "name": "Tasha",
+    "age": 29,
+    "prompt": "ultra-smooth plastic doll skin, hyper-real but uncanny, no pores, no skin texture, almost waxy mannequin face, dating app selfie pose, daylight, the person looks like a very expensive sex doll rather than a real human",
+    "file": "a07.jpg"
+  },
+  {
+    "id": "a08",
+    "kind": "ai",
+    "tells": [
+      "eyes_diff_color"
+    ],
+    "tell_label": "eyes different colors / glitching irises",
+    "name": "Zoe",
+    "age": 23,
+    "prompt": "close selfie, the left eye is bright blue, the right eye is brown, irises clearly mismatched colors, one pupil noticeably larger than the other, the second iris has a weird internal shape, subtle uncanny look",
+    "file": "a08.jpg"
+  },
+  {
+    "id": "a09",
+    "kind": "ai",
+    "tells": [
+      "extra_teeth"
+    ],
+    "tell_label": "too many teeth",
+    "name": "Kai",
+    "age": 27,
+    "prompt": "amateur selfie of a smiling man, mouth slightly open showing too many teeth \u2014 about 14 upper teeth all crammed together, double row of front teeth, AI mouth glitch, otherwise normal happy expression",
+    "file": "a09.jpg"
+  },
+  {
+    "id": "a10",
+    "kind": "ai",
+    "tells": [
+      "shadow_wrong"
+    ],
+    "tell_label": "shadow direction mismatched",
+    "name": "Felix",
+    "age": 28,
+    "prompt": "selfie outdoors at sunset, golden warm side lighting from the right of the frame, but the person's facial shadow falls on the OPPOSITE side (the right side of the face) \u2014 shadow direction does not match lighting, physically impossible illumination",
+    "file": "a10.jpg"
+  },
+  {
+    "id": "a11",
+    "kind": "ai",
+    "tells": [
+      "hair_blend"
+    ],
+    "tell_label": "hair fused with background",
+    "name": "Adrian",
+    "age": 30,
+    "prompt": "selfie of a woman with long dark hair against a dark wooden wall, the hair edges have no clean boundary and bleed/merge directly into the wood grain pattern, AI segmentation failure, soft melty hair-to-wood transition",
+    "file": "a11.jpg"
+  },
+  {
+    "id": "a12",
+    "kind": "ai",
+    "tells": [
+      "third_arm"
+    ],
+    "tell_label": "extra limb partly visible",
+    "name": "Caleb",
+    "age": 25,
+    "prompt": "amateur photo of a person at a cafe, an extra third arm visible faintly behind the shoulder, ghostly extra limb glitch, otherwise casual daylight dating-profile photo",
+    "file": "a12.jpg"
+  }
+]
