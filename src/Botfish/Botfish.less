@@ -365,7 +365,8 @@
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  z-index: 50;
+  // Must sit above the card stack (cards use z-index 100-depth)
+  z-index: 150;
 
   &__side {
     display: flex;
