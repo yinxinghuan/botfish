@@ -72,8 +72,10 @@ const LOCATION_KEYS = [
 //   - artifacts too subtle to spot without a magnifying glass (a11 hair edge)
 // Rule: a photo only counts as AI if "no real person could plausibly be like
 // this" at a glance. Subtle physics violations don't count.
+// NOTE: c02, c04, c19 were originally listed here but the model rendered them
+// with AI artifacts (phone-in-phone composition, three hands). Moved to AI.
 const CLEAN_ROSTER: Array<[string, string, number]> = [
-  ['c01', 'Maya',    26], ['c02', 'Chloe',   24], ['c03', 'Olivia', 29], ['c04', 'Sara',  25],
+  ['c01', 'Maya',    26],                          ['c03', 'Olivia', 29],
   ['c05', 'Ava',     27], ['c06', 'Lila',    23], ['c07', 'Noor',   28], ['c08', 'Iris',  30],
   ['c09', 'Jordan',  26], ['c10', 'Theo',    28], ['c11', 'Marcus', 31], ['c12', 'Eli',   25],
   // Reclassified from AI — visually indistinguishable from a real photo
@@ -111,24 +113,37 @@ const AI_ROSTER_ABSURD: Array<[string, string, number, string, string]> = [
   ['a24', 'Cyrus',  26, 'chair_fused',       'tell_chair_fused'],
 ];
 
-// 8 absurd AI tells r3 (a25-a35, minus the ones that rendered plausibly-real)
-// a28 holding lobsters, a29 next to a giraffe, a30 normal portrait, a36 mummy
-// costume at a museum — all reclassified as clean. Real people could do these.
+// 7 absurd AI tells r3 (a25-a35, minus the ones that rendered plausibly-real
+// or that a real person could plausibly do). a28 holding lobsters, a29 next
+// to a giraffe, a30 normal portrait, a33 cake on head (real party trick),
+// a36 mummy costume — all reclassified as clean.
 const AI_ROSTER_ABSURD_R3: Array<[string, string, number, string, string]> = [
   ['a25', 'Beau',    29, 'egg_eyes',          'tell_egg_eyes'],
   ['a26', 'Maple',   26, 'zipper_mouth',      'tell_zipper_mouth'],
   ['a27', 'Lux',     24, 'flame_hair',        'tell_flame_hair'],
   ['a31', 'Atlas',   30, 'branch_arms',       'tell_branch_arms'],
   ['a32', 'Cleo',    25, 'jelly_body',        'tell_jelly_body'],
-  ['a33', 'Dexter',  28, 'cake_hat',          'tell_cake_hat'],
   ['a34', 'Bea',     23, 'caterpillar_brows', 'tell_caterpillar_brows'],
   ['a35', 'Tobias',  32, 'bread_torso',       'tell_bread_torso'],
+];
+
+// Reclassified-clean photos that the model rendered as AI but plausibly real
+const RECLASSED_CLEAN_R3: Array<[string, string, number]> = [
+  ['a33', 'Dexter', 28], // wearing a cake on head — plausible birthday party gag
+];
+
+// Photos that were originally prompted CLEAN but the model added AI artifacts
+// (phone-in-phone framing, three hands, garbled IG UI). Game-mechanically AI.
+const AI_FROM_CLEAN: Array<[string, string, number, string, string]> = [
+  ['c02', 'Chloe',  24, 'phone_in_phone', 'tell_phone_in_phone'], // body extends outside iPhone frame
+  ['c04', 'Sara',   25, 'phone_in_phone', 'tell_phone_in_phone'], // body extends outside iPhone frame
+  ['c19', 'Casey',  24, 'three_hands',    'tell_three_hands'],    // 3 hands + phone-in-phone + garbled IG UI
 ];
 
 // 12 more clean photos (c13-c24) + 4 reclassified-from-AI photos that look real
 const CLEAN_ROSTER_R2: Array<[string, string, number]> = [
   ['c13', 'Skye',   25], ['c14', 'Holly',  28], ['c15', 'Diana',  30], ['c16', 'Aria',   27],
-  ['c17', 'Tom',    29], ['c18', 'Naomi',  26], ['c19', 'Casey',  24], ['c20', 'Ezra',   31],
+  ['c17', 'Tom',    29], ['c18', 'Naomi',  26],                          ['c20', 'Ezra',   31],
   ['c21', 'Mira',   25], ['c22', 'Joel',   28], ['c23', 'Hana',   30], ['c24', 'Ren',    27],
   // Reclassified from a25-a36 round 3: model rendered something a real person could be
   ['a28', 'Quinn',  28], // holding two whole lobsters at a seafood restaurant
@@ -241,6 +256,31 @@ export const PHOTOS: PhotoSpec[] = [
       promptLabelKey: pl,
       promptKey: pb,
       locationKey: LOCATION_KEYS[(i + 16) % LOCATION_KEYS.length],
+    };
+  }),
+  // Photos prompted as CLEAN but the model added an unambiguous AI artifact.
+  ...AI_FROM_CLEAN.map(([id, name, age, tell, tellLabelKey], i) => {
+    const [pl, pb] = PROMPT_KEYS[(i + 2) % PROMPT_KEYS.length];
+    return {
+      id, name, age,
+      kind: 'ai' as const,
+      tells: [tell],
+      tellLabelKey,
+      promptLabelKey: pl,
+      promptKey: pb,
+      locationKey: LOCATION_KEYS[(i + 2) % LOCATION_KEYS.length],
+    };
+  }),
+  // Photos prompted as AI but the model rendered something plausibly real.
+  ...RECLASSED_CLEAN_R3.map(([id, name, age], i) => {
+    const [pl, pb] = PROMPT_KEYS[(i + 20) % PROMPT_KEYS.length];
+    return {
+      id, name, age,
+      kind: 'clean' as const,
+      tells: [],
+      promptLabelKey: pl,
+      promptKey: pb,
+      locationKey: LOCATION_KEYS[(i + 20) % LOCATION_KEYS.length],
     };
   }),
 ];

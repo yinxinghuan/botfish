@@ -64,6 +64,9 @@ const TELL_POS: Record<string, { x: number; y: number; r: number }> = {
   yarn_body:         { x: 50, y: 60, r: 32 },
   origami_body:      { x: 50, y: 60, r: 32 },
   long_tongue:       { x: 50, y: 62, r: 30 },
+  // Misclassified-clean photos with AI artifacts
+  three_hands:       { x: 30, y: 70, r: 28 },
+  phone_in_phone:    { x: 50, y: 40, r: 40 },
 };
 
 function pickOne<T>(xs: T[]): T { return xs[Math.floor(Math.random() * xs.length)]; }

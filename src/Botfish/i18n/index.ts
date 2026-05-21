@@ -178,6 +178,8 @@ const dict: Record<Locale, Record<string, string>> = {
     tell_yarn_body:        '身体是毛线织的',
     tell_origami_body:     '身体是折纸做的',
     tell_long_tongue:      '舌头有两米长，垂到腰带',
+    tell_three_hands:      '她有三只手 —— 一只持手机、一只持刀、还多一只',
+    tell_phone_in_phone:   '整张照片被套在 iPhone 屏幕里，构图根本不合理',
   },
 
   en: {
@@ -345,6 +347,8 @@ const dict: Record<Locale, Record<string, string>> = {
     tell_yarn_body:        'body is knit from chunky yarn',
     tell_origami_body:     'body is folded origami paper',
     tell_long_tongue:      'tongue is two meters long, hanging down past the belt',
+    tell_three_hands:      'she has three hands — one holding a phone, one holding a knife, plus a third',
+    tell_phone_in_phone:   'the whole photo is mounted inside an iPhone frame, an impossible composition',
   },
 };
 
