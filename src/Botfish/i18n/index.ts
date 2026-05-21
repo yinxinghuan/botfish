@@ -17,10 +17,11 @@ const dict: Record<Locale, Record<string, string>> = {
     swiped:                '总滑动',
     max_combo:             '最大连击',
 
-    tut_title:             'AI 已经渗透进交友 app',
-    tut_sub:               '你的任务是把它们找出来。右滑相信，左滑识破假人。',
-    tut_swipe_left:        '左滑 · 假人',
-    tut_swipe_right:       '右滑 · 真人',
+    tut_title:             'AI 已渗透进交友 app',
+    tut_sub:               '把它们找出来 —— 右滑相信，左滑识破。',
+    tut_swipe_left:        '假人',
+    tut_swipe_right:       '真人',
+    tut_dismiss:           '滑动任意卡片开始',
 
     stamp_like:            '配对',
     stamp_nope:            '假人？',
@@ -200,9 +201,10 @@ const dict: Record<Locale, Record<string, string>> = {
     max_combo:             'Max combo',
 
     tut_title:             'AI has infiltrated this app.',
-    tut_sub:               'Your job: find them. Right to trust, left to flag a bot.',
-    tut_swipe_left:        'LEFT · BOT',
-    tut_swipe_right:       'RIGHT · REAL',
+    tut_sub:               'Find them — swipe right to trust, left to flag a bot.',
+    tut_swipe_left:        'BOT',
+    tut_swipe_right:       'REAL',
+    tut_dismiss:           'Swipe any card to begin',
 
     stamp_like:            'MATCH',
     stamp_nope:            'BOT?',
@@ -382,9 +384,10 @@ const dict: Record<Locale, Record<string, string>> = {
     max_combo:             'Макс. комбо',
 
     tut_title:             'ИИ проник в это приложение.',
-    tut_sub:               'Твоя задача — найти их. Вправо — поверить, влево — пометить бота.',
-    tut_swipe_left:        'ВЛЕВО · БОТ',
-    tut_swipe_right:       'ВПРАВО · ЧЕЛОВЕК',
+    tut_sub:               'Найди их — свайп вправо доверять, влево — бот.',
+    tut_swipe_left:        'БОТ',
+    tut_swipe_right:       'ЧЕЛОВЕК',
+    tut_dismiss:           'Свайпни любую карту, чтобы начать',
 
     stamp_like:            'МЭТЧ',
     stamp_nope:            'БОТ?',
@@ -564,9 +567,10 @@ const dict: Record<Locale, Record<string, string>> = {
     max_combo:             'Combo máximo',
 
     tut_title:             'La IA se infiltró en esta app.',
-    tut_sub:               'Tu trabajo: descubrirlos. Derecha para confiar, izquierda para marcar bot.',
-    tut_swipe_left:        'IZQ · BOT',
-    tut_swipe_right:       'DER · REAL',
+    tut_sub:               'Descúbrelos — derecha para confiar, izquierda para bot.',
+    tut_swipe_left:        'BOT',
+    tut_swipe_right:       'REAL',
+    tut_dismiss:           'Desliza cualquier carta para empezar',
 
     stamp_like:            'MATCH',
     stamp_nope:            '¿BOT?',

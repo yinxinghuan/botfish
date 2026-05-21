@@ -1,7 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-const GAMES_API = 'https://games-api.xinghuan-yin.workers.dev';
-
 function toBase64(str: string): string {
   return btoa(unescape(encodeURIComponent(str)));
 }
@@ -10,10 +8,11 @@ function fromBase64(str: string): string {
 }
 
 export interface LeaderboardEntry {
-  telegram_id: string;
+  user_id: string;
   name: string;
   avatar_url: string;
   score: number;
+  rank: number;
   isMe?: boolean;
 }
 
@@ -25,8 +24,23 @@ interface AigramUser {
 
 interface AigramResponse<T> {
   retcode: number;
+  errcode?: number;
   msg: string;
   data: T;
+}
+
+// Wire format returned by /note/aigram/ai/game/rank/score/list/by/session_id
+interface RankRow {
+  id: string;
+  game_id: string;
+  session_id: string;
+  user_id: string;
+  score: string;        // server returns score as string
+  rank: number;
+  user_name: string;
+  head_url: string;
+  create_time: number;
+  update_time: number;
 }
 
 function getAigramContext() {
@@ -34,7 +48,8 @@ function getAigramContext() {
   const telegramId = params.get('telegram_id') ?? null;
   const rawOrigin = params.get('api_origin');
   const apiOrigin = rawOrigin ? decodeURIComponent(rawOrigin) : null;
-  return { telegramId, apiOrigin };
+  const sessionId = params.get('session_id') ?? null;
+  return { telegramId, apiOrigin, sessionId };
 }
 
 function callAigramAPI<T>(
@@ -80,9 +95,12 @@ function callAigramAPI<T>(
   });
 }
 
-export function useGameScore(gameId: string) {
-  const { telegramId, apiOrigin } = getAigramContext();
+export function useGameScore() {
+  const { telegramId, apiOrigin, sessionId } = getAigramContext();
   const isInAigram = !!telegramId && !!apiOrigin;
+  // canRank is the real gate — both server endpoints require session_id, and
+  // submit also needs the parent (apiOrigin) to attach the user's token.
+  const canRank = isInAigram && !!sessionId;
 
   const [currentUser, setCurrentUser] = useState<AigramUser | null>(null);
   const currentUserRef = useRef<AigramUser | null>(null);
@@ -101,55 +119,37 @@ export function useGameScore(gameId: string) {
   }, []);
 
   const submitScore = useCallback(async (score: number) => {
-    if (!telegramId || score <= 0) return;
-    const user = currentUserRef.current;
+    if (!canRank || score <= 0) return;
     try {
-      await fetch(`${GAMES_API}/score`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          game_id: gameId,
-          telegram_id: telegramId,
-          name: user?.name ?? telegramId,
-          avatar_url: user?.head_url ?? '',
-          score,
-        }),
-      });
+      await callAigramAPI<AigramResponse<null>>(
+        apiOrigin!,
+        '/note/aigram/ai/game/rank/score/save',
+        'POST',
+        { session_id: sessionId, score },
+      );
     } catch { /* silent */ }
-  }, [gameId, telegramId]);
+  }, [canRank, apiOrigin, sessionId]);
 
-  const fetchGlobalLeaderboard = useCallback(async (): Promise<LeaderboardEntry[]> => {
-    const res = await fetch(`${GAMES_API}/leaderboard?game_id=${gameId}&limit=50`);
-    const json = await res.json() as { leaderboard: LeaderboardEntry[] };
-    return json.leaderboard.map(e => ({ ...e, isMe: e.telegram_id === telegramId }));
-  }, [gameId, telegramId]);
-
-  const fetchFriendsLeaderboard = useCallback(async (): Promise<LeaderboardEntry[]> => {
-    if (!isInAigram || !telegramId || !apiOrigin) return [];
-
-    // Start with current user, add contacts if fetch succeeds
-    const friendIds = new Set<string>([telegramId]);
+  const fetchLeaderboard = useCallback(async (): Promise<LeaderboardEntry[]> => {
+    if (!canRank) return [];
     try {
-      const contacts = await callAigramAPI<AigramResponse<AigramUser[]>>(
-        apiOrigin,
-        `/note/telegram/user/contact/list?telegram_id=${telegramId}`
+      const res = await callAigramAPI<AigramResponse<RankRow[]>>(
+        apiOrigin!,
+        `/note/aigram/ai/game/rank/score/list/by/session_id?session_id=${encodeURIComponent(sessionId!)}`,
       );
-      // Aigram may return { data: [...] } or a direct array — handle both
-      const list: AigramUser[] = Array.isArray(contacts) ? contacts : (contacts?.data ?? []);
-      list.forEach(f => { if (f.telegram_id) friendIds.add(String(f.telegram_id)); });
-    } catch { /* contacts fetch failed — still query with current user only */ }
-
-    try {
-      const ids = [...friendIds].join(',');
-      const res = await fetch(
-        `${GAMES_API}/leaderboard?game_id=${gameId}&telegram_ids=${encodeURIComponent(ids)}`
-      );
-      const json = await res.json() as { leaderboard: LeaderboardEntry[] };
-      return json.leaderboard.map(e => ({ ...e, isMe: e.telegram_id === telegramId }));
+      const rows: RankRow[] = Array.isArray(res?.data) ? res.data : [];
+      return rows.map(r => ({
+        user_id: String(r.user_id),
+        name: r.user_name,
+        avatar_url: r.head_url,
+        score: Number(r.score),
+        rank: r.rank,
+        isMe: telegramId != null && String(r.user_id) === telegramId,
+      }));
     } catch {
       return [];
     }
-  }, [gameId, telegramId, apiOrigin, isInAigram]);
+  }, [canRank, apiOrigin, sessionId, telegramId]);
 
   const postToAigram = useCallback(async (photoUrl: string): Promise<string | null> => {
     if (!isInAigram || !apiOrigin) throw new Error('not in aigram');
@@ -169,15 +169,16 @@ export function useGameScore(gameId: string) {
       } catch { /* ignore */ }
     }
     return postId;
-  }, [isInAigram, apiOrigin]);
+  }, [isInAigram, apiOrigin, telegramId]);
 
   return {
     isInAigram,
     telegramId,
+    sessionId,
+    canRank,
     currentUser,
     submitScore,
-    fetchGlobalLeaderboard,
-    fetchFriendsLeaderboard,
+    fetchLeaderboard,
     postToAigram,
   };
 }

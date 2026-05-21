@@ -362,75 +362,145 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  display: flex;
   align-items: center;
-  // Must sit above the card stack (cards use z-index 100-depth)
+  justify-content: center;
   z-index: 150;
+  padding: 0 24px;
 
-  &__side {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    padding: 0 20px;
-    animation: bf-tut-pulse 2200ms ease-in-out infinite;
-    color: @bf-ink;
-
-    &--right { animation-delay: 1100ms; }
+  &__scrim {
+    position: absolute;
+    inset: 0;
+    background: rgba(26, 20, 16, 0.55);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    animation: bf-tut-scrim 360ms ease forwards;
   }
 
-  &__icon {
-    width: 44px;
-    height: 44px;
-    fill: @bf-ink;
-    opacity: 0.6;
-  }
-
-  &__label {
-    font-family: @bf-sans;
-    font-size: 12px;
-    font-weight: 800;
-    letter-spacing: 1.4px;
+  &__panel {
+    position: relative;
+    background: @bf-bg;
     color: @bf-ink;
-    background: @bf-paper;
-    padding: 6px 12px;
-    border-radius: 999px;
-    border: 1px solid @bf-ink;
-  }
-
-  &__center {
-    text-align: center;
-    color: @bf-ink;
-    background: rgba(253, 248, 237, 0.95);
     border: 1.4px solid @bf-ink;
-    padding: 18px 22px 16px;
-    border-radius: 18px;
-    max-width: 300px;
-    backdrop-filter: blur(6px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    border-radius: 22px;
+    padding: 22px 22px 18px;
+    width: 100%;
+    max-width: 320px;
+    text-align: center;
+    box-shadow: 0 18px 42px rgba(0,0,0,0.42);
+    animation: bf-tut-panel 480ms cubic-bezier(.34,1.56,.64,1) forwards;
   }
+
+  &__brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: @bf-ink;
+    color: @bf-accent;
+    font-family: @bf-serif;
+    font-style: italic;
+    font-weight: 800;
+    font-size: 12px;
+    letter-spacing: 1.2px;
+    padding: 4px 11px 4px 9px;
+    border-radius: 999px;
+    margin-bottom: 12px;
+  }
+  &__brand-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: @bf-rose;
+    box-shadow: 0 0 6px rgba(216, 53, 85, 0.7);
+    animation: bf-tut-blink 1400ms ease-in-out infinite;
+  }
+
   &__title {
     font-family: @bf-serif;
     font-style: italic;
     font-weight: 900;
-    font-size: 22px;
-    line-height: 1.15;
-    letter-spacing: -0.3px;
+    font-size: 23px;
+    line-height: 1.16;
+    letter-spacing: -0.4px;
+    color: @bf-ink;
   }
+
   &__sub {
-    margin-top: 8px;
+    margin-top: 10px;
     font-family: @bf-sans;
     font-size: 13px;
-    color: @bf-muted;
     font-weight: 500;
-    line-height: 1.4;
+    color: @bf-muted;
+    line-height: 1.45;
+  }
+
+  &__arrows {
+    display: flex;
+    gap: 10px;
+    margin-top: 18px;
+  }
+
+  &__arrow {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 9px 8px;
+    border-radius: 12px;
+    border: 1.3px solid @bf-ink;
+    background: @bf-paper;
+    font-family: @bf-sans;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+    color: @bf-ink;
+    text-transform: uppercase;
+  }
+
+  &__arrow--left  { animation: bf-tut-nudge-left  2400ms ease-in-out infinite; }
+  &__arrow--right { animation: bf-tut-nudge-right 2400ms ease-in-out infinite; animation-delay: 1200ms; }
+
+  &__arrow-icon {
+    width: 18px;
+    height: 18px;
+    display: block;
+    flex: 0 0 auto;
+  }
+  &__arrow--left  .bf-tutorial__arrow-icon { color: @bf-rose; }
+  &__arrow--right .bf-tutorial__arrow-icon { color: @bf-ink; }
+
+  &__hint {
+    margin-top: 14px;
+    font-family: @bf-sans;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: @bf-muted;
+    text-transform: uppercase;
   }
 }
 
-@keyframes bf-tut-pulse {
-  0%, 100% { opacity: 0.65; transform: translateY(0); }
-  50%      { opacity: 1;    transform: translateY(-6px); }
+@keyframes bf-tut-scrim {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes bf-tut-panel {
+  0%   { opacity: 0; transform: scale(0.92) translateY(10px); }
+  100% { opacity: 1; transform: scale(1)    translateY(0); }
+}
+@keyframes bf-tut-blink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.35; }
+}
+@keyframes bf-tut-nudge-left {
+  0%, 100% { transform: translateX(0); }
+  50%      { transform: translateX(-3px); }
+}
+@keyframes bf-tut-nudge-right {
+  0%, 100% { transform: translateX(0); }
+  50%      { transform: translateX(3px); }
 }
 
 // ─── End screen ─────────────────────────────────────────────────────────────
