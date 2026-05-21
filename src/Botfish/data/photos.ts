@@ -140,6 +140,39 @@ const AI_FROM_CLEAN: Array<[string, string, number, string, string]> = [
   ['c32', 'Nora',   30, 'phone_in_phone', 'tell_phone_in_phone'],
   ['c34', 'Anders', 32, 'phone_in_phone', 'tell_phone_in_phone'],
   ['c36', 'Bram',   29, 'phone_in_phone', 'tell_phone_in_phone'],
+  // Round-5 clean prompts that ALL got the phone-in-phone artifact
+  ['c37', 'Calla',  26, 'phone_in_phone', 'tell_phone_in_phone'],
+  ['c38', 'Rumi',   30, 'phone_in_phone', 'tell_phone_in_phone'],
+  ['c39', 'Eden',   28, 'phone_in_phone', 'tell_phone_in_phone'],
+  ['c40', 'Otis2',  31, 'phone_in_phone', 'tell_phone_in_phone'],
+  ['c41', 'Sage2',  24, 'phone_in_phone', 'tell_phone_in_phone'],
+  ['c42', 'Marek',  32, 'phone_in_phone', 'tell_phone_in_phone'],
+  ['c43', 'Liv',    27, 'phone_in_phone', 'tell_phone_in_phone'],
+  ['c44', 'Stas',   29, 'phone_in_phone', 'tell_phone_in_phone'],
+  ['c45', 'Wynn',   25, 'phone_in_phone', 'tell_phone_in_phone'],
+  ['c46', 'Anya2',  26, 'phone_in_phone', 'tell_phone_in_phone'],
+  ['c47', 'Cael',   28, 'phone_in_phone', 'tell_phone_in_phone'],
+  ['c48', 'Nico2',  30, 'phone_in_phone', 'tell_phone_in_phone'],
+];
+
+// Round-5 absurd AI batch (a50-a60, a49 reclassified to clean below)
+const AI_ROSTER_ABSURD_R5: Array<[string, string, number, string, string]> = [
+  ['a50', 'Sofia',  26, 'peacock_tail',       'tell_peacock_tail'],
+  ['a51', 'Mick',   30, 'lava_skin',          'tell_lava_skin'],
+  ['a52', 'Anya',   24, 'snake_neck',         'tell_snake_neck'],
+  ['a53', 'Ravi',   31, 'mushroom_face',      'tell_mushroom_face'],
+  ['a54', 'Lena',   27, 'coral_hair',         'tell_coral_hair'],
+  ['a55', 'Dara',   29, 'brain_exposed',      'tell_brain_exposed'],
+  ['a56', 'Asher',  25, 'spider_legs',        'tell_spider_legs'],
+  ['a57', 'Inez',   28, 'butterfly_wings',    'tell_butterfly_wings'],
+  ['a58', 'Toben',  33, 'ice_skin',           'tell_ice_skin'],
+  ['a59', 'Suri',   24, 'wedding_cake_body',  'tell_wedding_cake_body'],
+  ['a60', 'Phin',   29, 'clock_face',         'tell_clock_face'],
+];
+
+// Reclassified r5: model rendered something plausibly real
+const RECLASSED_CLEAN_R5: Array<[string, string, number]> = [
+  ['a49', 'Drew',   28], // holding a red balloon in front of face — real party photo
 ];
 
 // 12 more clean photos (c13-c24) + 4 reclassified-from-AI photos that look real
@@ -283,6 +316,29 @@ export const PHOTOS: PhotoSpec[] = [
       promptLabelKey: pl,
       promptKey: pb,
       locationKey: LOCATION_KEYS[(i + 20) % LOCATION_KEYS.length],
+    };
+  }),
+  ...AI_ROSTER_ABSURD_R5.map(([id, name, age, tell, tellLabelKey], i) => {
+    const [pl, pb] = PROMPT_KEYS[(i + 8) % PROMPT_KEYS.length];
+    return {
+      id, name, age,
+      kind: 'ai' as const,
+      tells: [tell],
+      tellLabelKey,
+      promptLabelKey: pl,
+      promptKey: pb,
+      locationKey: LOCATION_KEYS[(i + 8) % LOCATION_KEYS.length],
+    };
+  }),
+  ...RECLASSED_CLEAN_R5.map(([id, name, age], i) => {
+    const [pl, pb] = PROMPT_KEYS[(i + 22) % PROMPT_KEYS.length];
+    return {
+      id, name, age,
+      kind: 'clean' as const,
+      tells: [],
+      promptLabelKey: pl,
+      promptKey: pb,
+      locationKey: LOCATION_KEYS[(i + 22) % LOCATION_KEYS.length],
     };
   }),
 ];

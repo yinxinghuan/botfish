@@ -37,11 +37,15 @@ _SSL.verify_mode = ssl.CERT_NONE
 # ────────────────────────────────────────────────────────────────────────────
 
 CLEAN_BASE = (
-    "natural candid iPhone photo, dating app profile selfie, "
+    "natural candid amateur photo, dating app profile selfie, "
     "soft daylight, ordinary background, casual outfit, "
     "neutral happy expression, looks real, NOT a portrait studio shot, "
     "amateur composition, slight imperfection, looks like a regular person, "
-    "9:16 portrait crop"
+    "9:16 portrait crop, "
+    # ── Anti phone-in-phone composition fix ────────────────────────────
+    "NO iPhone frame around the photo, NO smartphone bezel visible at the "
+    "edges of the image, NO Instagram or app UI elements anywhere, NO photo "
+    "of a phone screen — this IS the photo itself, not a screenshot of one"
 )
 
 # Each AI_TELL prompt explicitly hammers ONE visible glitch.
@@ -549,6 +553,146 @@ ABSURD_AI_TELLS_R4 = [
     },
 ]
 
+# Round-5 absurd (a49-a60). Fresh concepts not used in r2/r3/r4.
+ABSURD_AI_TELLS_R5 = [
+    {
+        "tag": "balloon_head",
+        "label_en": "head is a giant red helium balloon",
+        "label_zh": "头是一个巨大的红气球",
+        "prompt": (
+            "amateur indoor selfie, the person's head is a HUGE INFLATED RED HELIUM BALLOON "
+            "with a knot at the bottom of the neck and a string attached — no face, no skin, "
+            "smooth rubber surface, normal body in a sweater, photorealistic, party background"
+        ),
+    },
+    {
+        "tag": "peacock_tail",
+        "label_en": "huge peacock tail growing from the back",
+        "label_zh": "背后长出一整条孔雀尾羽",
+        "prompt": (
+            "amateur photo of a person seen from a 3/4 angle, an ENORMOUS FAN OF PEACOCK "
+            "FEATHERS grows directly out of their lower back — iridescent blue/green eye-spots, "
+            "fully spread tail, photorealistic feather detail, outdoor garden background"
+        ),
+    },
+    {
+        "tag": "lava_skin",
+        "label_en": "skin glows with lava cracks",
+        "label_zh": "皮肤裂开露出岩浆",
+        "prompt": (
+            "amateur dating selfie, the person's face and arms show DEEP GLOWING LAVA CRACKS "
+            "across their skin — bright orange/red molten rock visible through dark cracked "
+            "surface, smiling normally, photorealistic, dark indoor lighting"
+        ),
+    },
+    {
+        "tag": "snake_neck",
+        "label_en": "neck is a long live snake",
+        "label_zh": "脖子是一条活的长蛇",
+        "prompt": (
+            "amateur outdoor selfie, the person's NECK is replaced by a coiling LIVE GREEN "
+            "SNAKE — scales visible, snake head holding up the person's head from below, "
+            "photorealistic snake anatomy, normal smiling face, jungle background"
+        ),
+    },
+    {
+        "tag": "mushroom_face",
+        "label_en": "mushrooms growing all over the face",
+        "label_zh": "脸上长满了蘑菇",
+        "prompt": (
+            "amateur close-up selfie, the person's face has DOZENS of small RED-AND-WHITE "
+            "TOADSTOOL MUSHROOMS growing out of the skin like a forest — visible stems and "
+            "spotted caps, otherwise normal human features, photorealistic, forest background"
+        ),
+    },
+    {
+        "tag": "coral_hair",
+        "label_en": "hair is colorful coral reef",
+        "label_zh": "头发是彩色珊瑚",
+        "prompt": (
+            "amateur indoor selfie, hair is replaced by a vibrant ALIVE CORAL REEF growing "
+            "from the scalp — pink, orange, purple coral branches with tiny sea anemones "
+            "and small fish swimming through, photorealistic, aquarium background"
+        ),
+    },
+    {
+        "tag": "brain_exposed",
+        "label_en": "top of skull missing, brain visible",
+        "label_zh": "脑袋顶半开，大脑暴露在外",
+        "prompt": (
+            "amateur selfie, the top half of the person's skull is MISSING and the BRAIN is "
+            "fully visible — pink folded cerebral cortex sitting in the open skull, otherwise "
+            "normal face below, photorealistic anatomy, neutral expression, indoor lighting"
+        ),
+    },
+    {
+        "tag": "spider_legs",
+        "label_en": "spider legs sprouting from torso",
+        "label_zh": "躯干长出蜘蛛腿",
+        "prompt": (
+            "amateur selfie, EIGHT THIN HAIRY SPIDER LEGS sprout from the person's torso "
+            "sides — jointed black legs with chitin segments, the person otherwise normal "
+            "from the neck up, photorealistic, dim basement background"
+        ),
+    },
+    {
+        "tag": "butterfly_wings",
+        "label_en": "huge butterfly wings on the back",
+        "label_zh": "背上长着大蝴蝶翅膀",
+        "prompt": (
+            "amateur outdoor selfie, the person has ENORMOUS COLORFUL BUTTERFLY WINGS fully "
+            "spread from their shoulder blades — vivid orange/black monarch pattern, "
+            "translucent texture, otherwise normal human body, photorealistic, meadow background"
+        ),
+    },
+    {
+        "tag": "ice_skin",
+        "label_en": "skin is sharp ice crystals",
+        "label_zh": "皮肤是锋利的冰晶",
+        "prompt": (
+            "amateur close-up selfie, the person's skin is made of TRANSPARENT JAGGED ICE "
+            "CRYSTALS — geometric facets covering the face and arms, slightly blue tint, "
+            "photorealistic crystalline texture, cold winter scene background"
+        ),
+    },
+    {
+        "tag": "wedding_cake_body",
+        "label_en": "torso is a tiered wedding cake",
+        "label_zh": "躯干是多层婚礼蛋糕",
+        "prompt": (
+            "amateur indoor selfie, the person's HEAD and ARMS are normal but the entire "
+            "TORSO is a THREE-TIERED WHITE WEDDING CAKE with frosting, edible flowers, and a "
+            "tiny figurine on top, photorealistic icing texture, banquet hall background"
+        ),
+    },
+    {
+        "tag": "clock_face",
+        "label_en": "face is a clock dial",
+        "label_zh": "脸是一个钟表盘",
+        "prompt": (
+            "amateur selfie, the person's FACE is replaced by a LARGE ROUND CLOCK FACE — "
+            "Roman numerals, two black hands, no eyes/nose/mouth, just a clock where the face "
+            "should be, normal body in a vest, photorealistic, antique shop background"
+        ),
+    },
+]
+
+# Round-5 clean scenes (c37-c48). More variety.
+CLEAN_SCENES_R5 = [
+    "ski lift selfie, goggles up on forehead, snow background",
+    "street food vendor cart, holding a skewer up to camera",
+    "dog grooming salon, kneeling next to a wet labrador",
+    "vintage car driver seat, hand on steering wheel",
+    "small backstage greenroom, casual wave",
+    "jazz club basement, dim red lighting, holding a drink",
+    "pub trivia night, paper score sheet visible",
+    "DIY workshop with hammer in hand, sawdust",
+    "outdoor night market with paper lanterns overhead",
+    "wearing swim goggles at a public pool deck, dry",
+    "camping fireside, marshmallow on a stick",
+    "ferry deck at golden hour, hair tossed by wind",
+]
+
 # Round-4 clean scenes (c25-c36). New environments + body languages.
 CLEAN_SCENES_R4 = [
     "concert with glow sticks waving, candid laughing mid-song",
@@ -611,6 +755,14 @@ PROFILES = [
     ("Talia", 25), ("Boaz", 29), ("Mara", 27), ("Levi", 31),
     ("Ines", 26), ("Hugo", 28), ("Etta", 24), ("Nora", 30),
     ("Jules", 27), ("Anders", 32), ("Yara", 25), ("Bram", 29),
+    # Absurd AI batch r5 (a49–a60)
+    ("Drew", 28), ("Sofia", 26), ("Mick", 30), ("Anya", 24),
+    ("Ravi", 31), ("Lena", 27), ("Dara", 29), ("Asher", 25),
+    ("Inez", 28), ("Toben", 33), ("Suri", 24), ("Phin", 29),
+    # Clean batch r5 (c37–c48)
+    ("Calla", 26), ("Rumi", 30), ("Eden", 28), ("Otis2", 31),
+    ("Sage2", 24), ("Marek", 32), ("Liv", 27), ("Stas", 29),
+    ("Wynn", 25), ("Anya2", 26), ("Cael", 28), ("Nico2", 30),
 ]
 
 
@@ -787,6 +939,34 @@ def build_plan():
     for i, scene in enumerate(CLEAN_SCENES_R4):
         idx = i + 25
         name, age = PROFILES[72 + i]
+        plan.append({
+            "id":   f"c{idx:02d}",
+            "kind": "clean",
+            "tells": [],
+            "name": name,
+            "age":  age,
+            "prompt": f"{CLEAN_BASE}, {scene}",
+        })
+
+    # Absurd batch r5 — a49–a60
+    for i, tell in enumerate(ABSURD_AI_TELLS_R5):
+        idx = i + 49
+        name, age = PROFILES[84 + i]
+        plan.append({
+            "id":   f"a{idx:02d}",
+            "kind": "ai",
+            "tells": [tell["tag"]],
+            "tell_label_en": tell["label_en"],
+            "tell_label_zh": tell["label_zh"],
+            "name": name,
+            "age":  age,
+            "prompt": tell["prompt"],
+        })
+
+    # Clean batch r5 — c37–c48
+    for i, scene in enumerate(CLEAN_SCENES_R5):
+        idx = i + 37
+        name, age = PROFILES[96 + i]
         plan.append({
             "id":   f"c{idx:02d}",
             "kind": "clean",

@@ -67,6 +67,18 @@ const TELL_POS: Record<string, { x: number; y: number; r: number }> = {
   // Misclassified-clean photos with AI artifacts
   three_hands:       { x: 30, y: 70, r: 28 },
   phone_in_phone:    { x: 50, y: 40, r: 40 },
+  // Round-5 absurd
+  peacock_tail:      { x: 30, y: 50, r: 32 },
+  lava_skin:         { x: 50, y: 42, r: 32 },
+  snake_neck:        { x: 50, y: 60, r: 26 },
+  mushroom_face:     { x: 50, y: 42, r: 30 },
+  coral_hair:        { x: 50, y: 24, r: 32 },
+  brain_exposed:     { x: 50, y: 24, r: 28 },
+  spider_legs:       { x: 30, y: 64, r: 28 },
+  butterfly_wings:   { x: 60, y: 38, r: 36 },
+  ice_skin:          { x: 50, y: 42, r: 32 },
+  wedding_cake_body: { x: 50, y: 58, r: 32 },
+  clock_face:        { x: 50, y: 40, r: 30 },
 };
 
 function pickOne<T>(xs: T[]): T { return xs[Math.floor(Math.random() * xs.length)]; }

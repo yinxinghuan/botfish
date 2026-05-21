@@ -17,8 +17,8 @@ const dict: Record<Locale, Record<string, string>> = {
     swiped:                '总滑动',
     max_combo:             '最大连击',
 
-    tut_title:             '哪个是真人？',
-    tut_sub:               '右滑配对 · 左滑识破假人',
+    tut_title:             'AI 已经渗透进交友 app',
+    tut_sub:               '你的任务是把它们找出来。右滑相信，左滑识破假人。',
     tut_swipe_left:        '左滑 · 假人',
     tut_swipe_right:       '右滑 · 真人',
 
@@ -199,8 +199,8 @@ const dict: Record<Locale, Record<string, string>> = {
     swiped:                'Total swiped',
     max_combo:             'Max combo',
 
-    tut_title:             'Spot the real one.',
-    tut_sub:               'Right to match · Left to flag a bot',
+    tut_title:             'AI has infiltrated this app.',
+    tut_sub:               'Your job: find them. Right to trust, left to flag a bot.',
     tut_swipe_left:        'LEFT · BOT',
     tut_swipe_right:       'RIGHT · REAL',
 
@@ -381,8 +381,8 @@ const dict: Record<Locale, Record<string, string>> = {
     swiped:                'Всего свайпов',
     max_combo:             'Макс. комбо',
 
-    tut_title:             'Кто из них настоящий?',
-    tut_sub:               'Вправо — мэтч, влево — бот',
+    tut_title:             'ИИ проник в это приложение.',
+    tut_sub:               'Твоя задача — найти их. Вправо — поверить, влево — пометить бота.',
     tut_swipe_left:        'ВЛЕВО · БОТ',
     tut_swipe_right:       'ВПРАВО · ЧЕЛОВЕК',
 
@@ -563,8 +563,8 @@ const dict: Record<Locale, Record<string, string>> = {
     swiped:                'Total deslizado',
     max_combo:             'Combo máximo',
 
-    tut_title:             '¿Quién es real?',
-    tut_sub:               'Derecha: match · Izquierda: marcar bot',
+    tut_title:             'La IA se infiltró en esta app.',
+    tut_sub:               'Tu trabajo: descubrirlos. Derecha para confiar, izquierda para marcar bot.',
     tut_swipe_left:        'IZQ · BOT',
     tut_swipe_right:       'DER · REAL',
 
