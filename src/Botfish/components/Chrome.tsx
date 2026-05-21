@@ -4,36 +4,14 @@ interface AppBarProps {
   score: number;
 }
 
-/** Fake iOS status bar — kept dark on cream to match Hinge feel. */
+/** Top safe-area spacer. Aigram and iOS both overlay their own real
+ *  status bar — we no longer render a fake "9:41 + signal + battery"
+ *  underneath it. Just reserves vertical room. */
 export const StatusBar = memo(function StatusBar() {
-  return (
-    <div className="bf-status">
-      <span className="bf-status__time">9:41</span>
-      <span className="bf-status__right">
-        <svg viewBox="0 0 18 12" className="bf-status__sig" aria-hidden>
-          <path d="M2 9.5 a4 4 0 0 1 5 0" fill="none" stroke="currentColor" strokeWidth="1.4"/>
-          <path d="M4 11 a2 2 0 0 1 3 0" fill="none" stroke="currentColor" strokeWidth="1.4"/>
-          <circle cx="5.5" cy="11.5" r="0.8" fill="currentColor"/>
-        </svg>
-        <svg viewBox="0 0 14 10" className="bf-status__wifi" aria-hidden>
-          <path d="M0 4 a8 8 0 0 1 14 0" fill="none" stroke="currentColor" strokeWidth="1.3"/>
-          <path d="M2 6 a6 6 0 0 1 10 0" fill="none" stroke="currentColor" strokeWidth="1.3"/>
-          <path d="M4 8 a4 4 0 0 1 6 0" fill="none" stroke="currentColor" strokeWidth="1.3"/>
-          <circle cx="7" cy="9.5" r="0.9" fill="currentColor"/>
-        </svg>
-        <svg viewBox="0 0 24 13" className="bf-status__batt" aria-hidden>
-          <rect x="0" y="0.5" width="20" height="12" rx="2.4" fill="none" stroke="currentColor" strokeWidth="1.2"/>
-          <rect x="2" y="2.5" width="16" height="8" fill="currentColor"/>
-          <rect x="21" y="3.5" width="2" height="6" fill="currentColor"/>
-        </svg>
-      </span>
-    </div>
-  );
+  return <div className="bf-status" aria-hidden />;
 });
 
-/** AppBar: logo + wordmark left · score right.
- *  Lives system is gone — both wrong moves are instant game-over, score is the
- *  only running readout. */
+/** AppBar: logo + wordmark left · score right. */
 export const AppBar = memo(function AppBar({ score }: AppBarProps) {
   return (
     <header className="bf-appbar">

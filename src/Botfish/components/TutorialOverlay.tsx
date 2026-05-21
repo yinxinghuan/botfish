@@ -1,11 +1,25 @@
+import { useEffect } from 'react';
 import { t } from '../i18n';
 
-/** First-launch intro overlay. Sits above the card stack (z-index 150).
- *  Pointer-events: none lets the player still drag the card underneath —
- *  the first interaction sets hasInteracted and the overlay fades out. */
-export function TutorialOverlay() {
+interface Props {
+  onDismiss: () => void;
+}
+
+const AUTO_DISMISS_MS = 5000;
+
+/** First-launch intro modal. Tap anywhere on the overlay or wait 5 seconds
+ *  and it fades out (calling onDismiss which flips hasInteracted in the hook). */
+export function TutorialOverlay({ onDismiss }: Props) {
+  useEffect(() => {
+    const id = setTimeout(onDismiss, AUTO_DISMISS_MS);
+    return () => clearTimeout(id);
+  }, [onDismiss]);
+
   return (
-    <div className="bf-tutorial">
+    <div
+      className="bf-tutorial"
+      onPointerDown={(e) => { e.stopPropagation(); onDismiss(); }}
+    >
       <div className="bf-tutorial__scrim" />
       <div className="bf-tutorial__panel">
         <div className="bf-tutorial__brand">

@@ -12,7 +12,7 @@ import './Botfish.less';
 export default function Botfish() {
   const {
     screen, score, banner, best, stats, hasInteracted,
-    stack, rootRef, start, swipeLeft, swipeRight,
+    stack, rootRef, start, swipeLeft, swipeRight, dismissTutorial,
     onPointerDown, onPointerMove, onPointerUp, onPointerCancel,
   } = useBotfish();
 
@@ -85,7 +85,7 @@ export default function Botfish() {
         </div>
       )}
 
-      {showTutorial && <TutorialOverlay />}
+      {showTutorial && <TutorialOverlay onDismiss={dismissTutorial} />}
 
       {screen === 'end' && (
         <EndScreen

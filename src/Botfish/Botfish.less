@@ -31,24 +31,13 @@
     radial-gradient(@bf-bg 1px, transparent 1px);
 }
 
-// ─── Status bar ──────────────────────────────────────────────────────────────
+// ─── Top safe-area spacer (no fake status bar content) ─────────────────────
 
 .bf-status {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 44px;
-  padding: 0 28px;
-  font-family: @bf-sans;
-  font-size: 15px;
-  font-weight: 600;
-  color: @bf-ink;
   flex: 0 0 auto;
-  &__time { font-variant-numeric: tabular-nums; }
-  &__right { display: flex; align-items: center; gap: 6px; color: @bf-ink; }
-  &__sig  { width: 18px; height: 12px; }
-  &__wifi { width: 14px; height: 10px; }
-  &__batt { width: 24px; height: 13px; }
+  height: 12px;
+  // Respect device safe-area on real iOS / PWA chrome
+  padding-top: env(safe-area-inset-top, 0px);
 }
 
 // ─── AppBar ──────────────────────────────────────────────────────────────────
@@ -361,12 +350,14 @@
 .bf-tutorial {
   position: absolute;
   inset: 0;
-  pointer-events: none;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 150;
   padding: 0 24px;
+  cursor: pointer;
+  // Tap-anywhere to dismiss
+  -webkit-tap-highlight-color: transparent;
 
   &__scrim {
     position: absolute;
@@ -377,17 +368,19 @@
     animation: bf-tut-scrim 360ms ease forwards;
   }
 
+  // Dark ink panel — feels like a security alert / intel briefing.
+  // Sits on top of the scrim with deep shadow + warm-black background.
   &__panel {
     position: relative;
-    background: @bf-bg;
-    color: @bf-ink;
-    border: 1.4px solid @bf-ink;
+    background: @bf-ink;
+    color: @bf-bg;
     border-radius: 22px;
     padding: 22px 22px 18px;
     width: 100%;
     max-width: 320px;
     text-align: center;
-    box-shadow: 0 18px 42px rgba(0,0,0,0.42);
+    box-shadow: 0 22px 50px rgba(0, 0, 0, 0.55),
+                inset 0 1px 0 rgba(255, 255, 255, 0.08);
     animation: bf-tut-panel 480ms cubic-bezier(.34,1.56,.64,1) forwards;
   }
 
@@ -395,8 +388,8 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    background: @bf-ink;
-    color: @bf-accent;
+    background: @bf-accent;
+    color: @bf-ink;
     font-family: @bf-serif;
     font-style: italic;
     font-weight: 800;
@@ -404,14 +397,14 @@
     letter-spacing: 1.2px;
     padding: 4px 11px 4px 9px;
     border-radius: 999px;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
   }
   &__brand-dot {
     width: 6px;
     height: 6px;
     border-radius: 50%;
     background: @bf-rose;
-    box-shadow: 0 0 6px rgba(216, 53, 85, 0.7);
+    box-shadow: 0 0 6px rgba(216, 53, 85, 0.85);
     animation: bf-tut-blink 1400ms ease-in-out infinite;
   }
 
@@ -419,10 +412,10 @@
     font-family: @bf-serif;
     font-style: italic;
     font-weight: 900;
-    font-size: 23px;
+    font-size: 24px;
     line-height: 1.16;
     letter-spacing: -0.4px;
-    color: @bf-ink;
+    color: @bf-bg;
   }
 
   &__sub {
@@ -430,7 +423,7 @@
     font-family: @bf-sans;
     font-size: 13px;
     font-weight: 500;
-    color: @bf-muted;
+    color: rgba(243, 236, 223, 0.66);
     line-height: 1.45;
   }
 
@@ -447,15 +440,15 @@
     align-items: center;
     justify-content: center;
     gap: 6px;
-    padding: 9px 8px;
+    padding: 10px 8px;
     border-radius: 12px;
-    border: 1.3px solid @bf-ink;
-    background: @bf-paper;
+    border: 1.2px solid rgba(243, 236, 223, 0.18);
+    background: rgba(243, 236, 223, 0.06);
     font-family: @bf-sans;
     font-size: 11px;
     font-weight: 800;
     letter-spacing: 1.2px;
-    color: @bf-ink;
+    color: @bf-bg;
     text-transform: uppercase;
   }
 
@@ -469,7 +462,7 @@
     flex: 0 0 auto;
   }
   &__arrow--left  .bf-tutorial__arrow-icon { color: @bf-rose; }
-  &__arrow--right .bf-tutorial__arrow-icon { color: @bf-ink; }
+  &__arrow--right .bf-tutorial__arrow-icon { color: @bf-accent; }
 
   &__hint {
     margin-top: 14px;
@@ -477,7 +470,7 @@
     font-size: 10px;
     font-weight: 700;
     letter-spacing: 1.5px;
-    color: @bf-muted;
+    color: rgba(243, 236, 223, 0.4);
     text-transform: uppercase;
   }
 }

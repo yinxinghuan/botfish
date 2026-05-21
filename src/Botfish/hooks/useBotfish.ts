@@ -287,6 +287,15 @@ export function useBotfish() {
   const swipeRight = useCallback(() => commitSwipe(1), [commitSwipe]);
   const swipeLeft  = useCallback(() => commitSwipe(-1), [commitSwipe]);
 
+  /** Dismiss the first-launch tutorial — called by tap-anywhere or the
+   *  5-second auto-timeout inside the overlay. Marks the game as started
+   *  without committing a swipe. */
+  const dismissTutorial = useCallback(() => {
+    if (gameStartedRef.current) return;
+    gameStartedRef.current = true;
+    setHasInteracted(true);
+  }, []);
+
   const rafRef = useRef<number | null>(null);
   const lastTickRef = useRef<number>(0);
   useEffect(() => {
@@ -338,7 +347,7 @@ export function useBotfish() {
     stack: stackRef.current,
     isDragging: draggingRef.current,
     rootRef,
-    start, swipeLeft, swipeRight,
+    start, swipeLeft, swipeRight, dismissTutorial,
     onPointerDown, onPointerMove, onPointerUp, onPointerCancel,
   };
 }
