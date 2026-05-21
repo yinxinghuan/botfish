@@ -126,23 +126,25 @@ export function EndScreen({ stats, best, onAgain, onOpenLeaderboard }: Props) {
   return (
     <div className={`bf-overlay bf-overlay--${trusted ? 'bot' : 'real'}`}>
       <div className="bf-overlay__inner">
+        {/* Hero row: small photo on left, headline + score on right */}
         {stats.lastPhoto && (
-          <>
-            <div className="bf-overlay__label">{t('end_reveal_label')}</div>
-            <Reveal photo={stats.lastPhoto} kind={trusted ? 'trusted_ai' : 'missed_real'} />
-          </>
+          <div className="bf-overlay__hero">
+            <div className="bf-overlay__reveal-wrap">
+              <Reveal photo={stats.lastPhoto} kind={trusted ? 'trusted_ai' : 'missed_real'} />
+            </div>
+            <div className="bf-overlay__hero-text">
+              <div className="bf-overlay__headline">{headline}</div>
+              {sub && <div className="bf-overlay__sub">{sub}</div>}
+              <div className="bf-final-inline">
+                <span className="bf-final-inline__label">{t('final_score')}</span>
+                <span className="bf-final-inline__value">{stats.finalScore}</span>
+                {stats.isNewBest && <span className="bf-newbest-chip">{t('new_best')}</span>}
+              </div>
+            </div>
+          </div>
         )}
 
-        <div className="bf-overlay__headline">{headline}</div>
-        {sub && <div className="bf-overlay__sub">{sub}</div>}
-
-        {stats.isNewBest && <div className="bf-newbest">{t('new_best')}</div>}
-
-        <div className="bf-final">
-          <div className="bf-final__label">{t('final_score')}</div>
-          <div className="bf-final__value">{stats.finalScore}</div>
-        </div>
-
+        {/* Stats: 4-up inline row */}
         <div className="bf-stats">
           <div className="bf-stats__cell">
             <div className="bf-stats__label">{t('best')}</div>
@@ -162,6 +164,7 @@ export function EndScreen({ stats, best, onAgain, onOpenLeaderboard }: Props) {
           </div>
         </div>
 
+        {/* Buttons: horizontal row */}
         <div className="bf-overlay__buttons">
           <button className="bf-btn bf-btn--primary" onPointerDown={onAgain}>{t('again')}</button>
           <button className="bf-btn bf-btn--ghost" onPointerDown={onOpenLeaderboard}>{t('leaderboard')}</button>

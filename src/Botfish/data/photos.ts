@@ -65,24 +65,16 @@ const LOCATION_KEYS = [
   'loc_5mi_boerum',    'loc_2mi_chelsea',      'loc_6mi_prospect',   'loc_4mi_gowanus',
 ];
 
-// Clean photos — both prompted-clean (c*) AND originally-prompted-as-AI photos
-// where the model produced something a real person plausibly could have:
-//   - normal anatomy (a01 five fingers, a04 normal ears)
-//   - things a real person could wear (a05 graphic-print T-shirt)
-//   - artifacts too subtle to spot without a magnifying glass (a11 hair edge)
-// Rule: a photo only counts as AI if "no real person could plausibly be like
-// this" at a glance. Subtle physics violations don't count.
-// NOTE: c02, c04, c19 were originally listed here but the model rendered them
-// with AI artifacts (phone-in-phone composition, three hands). Moved to AI.
+// Clean photos. Audited and curated — the model occasionally hallucinates a
+// "phone-in-phone" composition (subject rendered inside an iPhone frame with
+// body parts extending outside) even on neutral selfie prompts; those moved
+// to the AI pool below.
 const CLEAN_ROSTER: Array<[string, string, number]> = [
   ['c01', 'Maya',    26],                          ['c03', 'Olivia', 29],
-  ['c05', 'Ava',     27], ['c06', 'Lila',    23], ['c07', 'Noor',   28], ['c08', 'Iris',  30],
-  ['c09', 'Jordan',  26], ['c10', 'Theo',    28], ['c11', 'Marcus', 31], ['c12', 'Eli',   25],
-  // Reclassified from AI — visually indistinguishable from a real photo
-  ['a01', 'Daniel',  27], // prompt asked six fingers; model rendered a normal five-finger hand
-  ['a04', 'Sam',     29], // prompt asked three ears; model gave a normal portrait
-  ['a05', 'Riya',   26],  // garbled shirt text — but a real person could wear a graphic shirt
-  ['a11', 'Adrian',  30], // hair edge bleed — too subtle to spot
+  ['c05', 'Ava',     27], ['c06', 'Lila',    23], ['c07', 'Noor',   28],
+  ['c10', 'Theo',    28], ['c11', 'Marcus', 31], ['c12', 'Eli',   25],
+  // Reclassified from subtle-AI — visually indistinguishable from a real photo
+  ['a01', 'Daniel',  27], ['a04', 'Sam',     29], ['a05', 'Riya',   26], ['a11', 'Adrian', 30],
 ];
 
 // 8 subtle AI tells that still pass the "no real person could be like this" bar
@@ -135,16 +127,26 @@ const RECLASSED_CLEAN_R3: Array<[string, string, number]> = [
 // Photos that were originally prompted CLEAN but the model added AI artifacts
 // (phone-in-phone framing, three hands, garbled IG UI). Game-mechanically AI.
 const AI_FROM_CLEAN: Array<[string, string, number, string, string]> = [
-  ['c02', 'Chloe',  24, 'phone_in_phone', 'tell_phone_in_phone'], // body extends outside iPhone frame
-  ['c04', 'Sara',   25, 'phone_in_phone', 'tell_phone_in_phone'], // body extends outside iPhone frame
-  ['c19', 'Casey',  24, 'three_hands',    'tell_three_hands'],    // 3 hands + phone-in-phone + garbled IG UI
+  ['c02', 'Chloe',  24, 'phone_in_phone', 'tell_phone_in_phone'],
+  ['c04', 'Sara',   25, 'phone_in_phone', 'tell_phone_in_phone'],
+  ['c08', 'Iris',   30, 'phone_in_phone', 'tell_phone_in_phone'],
+  ['c09', 'Jordan', 26, 'phone_in_phone', 'tell_phone_in_phone'],
+  ['c14', 'Holly',  28, 'phone_in_phone', 'tell_phone_in_phone'],
+  ['c15', 'Diana',  30, 'phone_in_phone', 'tell_phone_in_phone'],
+  ['c17', 'Tom',    29, 'phone_in_phone', 'tell_phone_in_phone'],
+  ['c19', 'Casey',  24, 'three_hands',    'tell_three_hands'],
+  ['c24', 'Ren',    27, 'phone_in_phone', 'tell_phone_in_phone'],
+  ['c31', 'Etta',   24, 'phone_in_phone', 'tell_phone_in_phone'],
+  ['c32', 'Nora',   30, 'phone_in_phone', 'tell_phone_in_phone'],
+  ['c34', 'Anders', 32, 'phone_in_phone', 'tell_phone_in_phone'],
+  ['c36', 'Bram',   29, 'phone_in_phone', 'tell_phone_in_phone'],
 ];
 
 // 12 more clean photos (c13-c24) + 4 reclassified-from-AI photos that look real
 const CLEAN_ROSTER_R2: Array<[string, string, number]> = [
-  ['c13', 'Skye',   25], ['c14', 'Holly',  28], ['c15', 'Diana',  30], ['c16', 'Aria',   27],
-  ['c17', 'Tom',    29], ['c18', 'Naomi',  26],                          ['c20', 'Ezra',   31],
-  ['c21', 'Mira',   25], ['c22', 'Joel',   28], ['c23', 'Hana',   30], ['c24', 'Ren',    27],
+  ['c13', 'Skye',   25],                                                  ['c16', 'Aria',   27],
+                          ['c18', 'Naomi',  26],                          ['c20', 'Ezra',   31],
+  ['c21', 'Mira',   25], ['c22', 'Joel',   28], ['c23', 'Hana',   30],
   // Reclassified from a25-a36 round 3: model rendered something a real person could be
   ['a28', 'Quinn',  28], // holding two whole lobsters at a seafood restaurant
   ['a29', 'Roman',  31], // selfie next to a giraffe (the prompt asked for "stretched neck")
@@ -168,8 +170,8 @@ const AI_ROSTER_ABSURD_R4: Array<[string, string, number, string, string]> = [
 // Round-3 clean batch (c25-c36) + 3 reclassified-from-AI-r4
 const CLEAN_ROSTER_R3: Array<[string, string, number]> = [
   ['c25', 'Talia',  25], ['c26', 'Boaz',   29], ['c27', 'Mara',   27], ['c28', 'Levi',   31],
-  ['c29', 'Ines2',  26], ['c30', 'Hugo2',  28], ['c31', 'Etta',   24], ['c32', 'Nora',   30],
-  ['c33', 'Jules',  27], ['c34', 'Anders', 32], ['c35', 'Yara',   25], ['c36', 'Bram',   29],
+  ['c29', 'Ines2',  26], ['c30', 'Hugo2',  28],
+  ['c33', 'Jules',  27],                          ['c35', 'Yara',   25],
   // Reclassified from a37-a48 r4: model rendered cosplay / props / normal sweater
   ['a39', 'Knox',   30], // deer-skull headpiece, plausible cosplay
   ['a44', 'Lior',   25], // normal hand holding a pencil
