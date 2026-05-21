@@ -16,8 +16,7 @@ export default function Botfish() {
     onPointerDown, onPointerMove, onPointerUp, onPointerCancel,
   } = useBotfish();
 
-  const { isInAigram, submitScore, fetchGlobalLeaderboard, fetchFriendsLeaderboard } =
-    useGameScore('botfish');
+  const { isInAigram, submitScore, fetchLeaderboard } = useGameScore();
   const [showLeaderboard, setShowLeaderboard] = useState(false);
 
   useEffect(() => {
@@ -101,8 +100,7 @@ export default function Botfish() {
         <Leaderboard
           gameName="BOTFISH"
           onClose={() => setShowLeaderboard(false)}
-          fetchGlobal={fetchGlobalLeaderboard}
-          fetchFriends={fetchFriendsLeaderboard}
+          fetch={fetchLeaderboard}
           isInAigram={isInAigram}
         />
       )}
