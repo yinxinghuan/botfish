@@ -1,4 +1,5 @@
 import { type CSSProperties, useEffect, useState } from 'react';
+import { openAigramProfile } from '../runtime/bridge';
 import type { LeaderboardEntry } from './useGameScore';
 import './Leaderboard.less';
 
@@ -54,15 +55,6 @@ const MEDAL_COLORS = ['#FFD700', '#C0C0C0', '#CD7F32'];
 
 // ─── Component ────────────────────────────────────────────────────────────
 
-function openProfile(userId: string) {
-  const apiOrigin = new URLSearchParams(window.location.search).get('api_origin');
-  if (!apiOrigin) return;
-  try {
-    const encoded = btoa(JSON.stringify({ id: userId }));
-    window.parent.postMessage(`AW.PROFILE.OPEN-${encoded}`, apiOrigin);
-  } catch { /* ignore */ }
-}
-
 export default function Leaderboard({ gameName, isInAigram, onClose, fetch }: Props) {
   const [entries, setEntries] = useState<LeaderboardEntry[]>([]);
   const [loading, setLoading] = useState(true);
@@ -112,7 +104,7 @@ export default function Leaderboard({ gameName, isInAigram, onClose, fetch }: Pr
               key={entry.user_id}
               className={`lb-row ${entry.isMe ? 'lb-row--me' : ''} ${i < 3 ? 'lb-row--top' : ''} ${isInAigram ? 'lb-row--clickable' : ''}`}
               style={i < 3 ? { '--medal-color': MEDAL_COLORS[i] } as CSSProperties : undefined}
-              onClick={isInAigram ? () => openProfile(entry.user_id) : undefined}
+              onClick={isInAigram ? () => openAigramProfile(entry.user_id) : undefined}
             >
               <div className="lb-row__rank">
                 {i < 3
